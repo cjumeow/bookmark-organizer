@@ -50,6 +50,8 @@ Planned layout; update this table when it changes.
 | The skill that organizes bookmarks, for users | `skills/bookmark-organizer/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
 | What changed for users, release by release | `CHANGELOG.md` |
+| How to prove a change, and the map of user-facing features | `.claude/skills/verify/`, `.claude/skills/verify/features/` |
+| Verification evidence files, kept on this computer and ignored by git | `artifacts/<branch>/` |
 | Spec, glossary, design decisions | `docs/`, `docs/glossary.md`, `docs/adr/` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
@@ -58,6 +60,7 @@ Planned layout; update this table when it changes.
 | Before you | Use |
 |---|---|
 | commit, push a branch, or open or merge a pull request | [`commit-and-pull-request-convention`](.claude/skills/commit-and-pull-request-convention/SKILL.md) |
+| say a change works, or write a pull request's Verification section | [`verify`](.claude/skills/verify/SKILL.md) |
 | open a pull request | `/code-review` on the change |
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
@@ -73,11 +76,12 @@ Add a row when a skill is added under `.claude/skills/`. List only skills that e
 - Keep pull requests small enough to read in one sitting. Never merge code you cannot explain.
 - A change to what a document in `docs/` describes updates that document in the same pull request.
 
-## Trying a change
+## Proving a change
 
-Try a change from a build of a commit, never from the working tree: load the extension from a build output and
-register the MCP server from a build, so a half-edited file never runs and every result can be traced to a commit.
-The scripts for this come with the code.
+A change is done when it is proven on the real thing, not when it compiles or its tests pass: run a build of a
+commit, never the working tree, observe the result, and put the evidence in the pull request's Verification section.
+What counts as proof for each kind of change, how to drive the app in isolation, and the feature map are in
+[`verify`](.claude/skills/verify/SKILL.md).
 
 ## Commands
 

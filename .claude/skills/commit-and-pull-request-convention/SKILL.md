@@ -85,10 +85,11 @@ it, so it is written in the pull requests rather than at release time.
   | `## Why` | Is the problem worth solving? | what was wrong or missing |
   | `## What changes` | Is this the right change, and where to look? | what is different for a user or the agent: tools, plan fields, rules |
   | `## Trade-offs` | Is the price acceptable? | what gets worse, what was given up, the alternative not taken |
-  | `## Verification` | Is the risk acceptable? | what was checked beyond CI, what is still unchecked, what to watch for |
+  | `## Verification` | Is the risk acceptable? | each claim with its evidence and how sure it is, what is still unchecked, what to watch for |
 
-  Why and What changes are always there. Leave Trade-offs out when nothing was given up, and Verification out when CI
-  is all there is; never fill a section for its own sake.
+  Why, What changes and Verification are always there: a passing CI run does not show that a change was proven, and
+  what counts as evidence is in [`verify`](../verify/SKILL.md). Leave Trade-offs out when nothing was given up; never
+  fill a section for its own sake.
 - **What changes** opens with one or two sentences that say what the change is as a whole; a single change ends
   there. Several separate changes follow as one level of bullets, each starting with the bold name of the thing that
   changes (a tool, a file, a rule) and one sentence on how. Items that share attributes go in a table. No file lists,
