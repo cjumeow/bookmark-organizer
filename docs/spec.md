@@ -115,8 +115,8 @@ type Operation =
 ### Validation
 
 A plan is checked by running it on a copy of the current tree, in order, so every rule is checked against the tree as
-it is at that operation. Validation reports every broken rule at once, each with the index of its operation, and a plan
-with any broken rule changes nothing.
+it is at that operation. Validation reports every broken rule at once, each with the index of its operation (`-1` for a
+rule of the whole plan, such as its revision), and a plan with any broken rule changes nothing.
 
 1. The plan's `revision` is the revision of the current tree.
 2. Every ID is a node of the tree as `get_tree` returns it, and every key was defined by an earlier `create`. No key is
@@ -139,12 +139,14 @@ A plan with no operations is valid and changes nothing.
 ```text
 create folder "Reference" in "Other bookmarks"
 move "Example: a test site" from "Bookmarks bar/Misc" to "Other bookmarks/Reference"
+move "Docs" from "Bookmarks bar" to "Bookmarks bar", before "Example: a test site"
 rename "example.org" to "Example Org: another test site"
 remove "Example: a test site" from "Bookmarks bar/Old"
 ```
 
 Folders are written as paths from their special folder. When the profile has both storages, a special folder's name
-says which, as in `"Bookmarks bar (account)"`.
+says which, as in `"Bookmarks bar (account)"`. When a `create` or `move` has an `index`, its line ends with where the
+node lands: before the node that follows it, or at the end.
 
 ## MCP tools
 
