@@ -1,0 +1,5 @@
+# macOS folder metadata
+.DS_Store
+
+# Verification evidence (screenshots, tree dumps), kept locally: see .claude/skills/verify
+artifacts/
