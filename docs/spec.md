@@ -365,3 +365,5 @@ type Notification = { method: string; params?: unknown }; // no id, no answer
 - Moving nodes between local and account storage.
 - Browsers other than Chrome.
 - Choosing which Chrome profile to work on when the extension is installed in several.
+
+This line only probes the docs-only path of check-code; this branch is never merged.
