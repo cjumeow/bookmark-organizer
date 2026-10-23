@@ -1,0 +1,64 @@
+{
+  "tree": [
+    { "id": "1", "title": "Bookmarks bar", "folderType": "bookmarks-bar", "syncing": false, "children": [] },
+    {
+      "id": "2",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": false,
+      "children": [
+        { "id": "20", "title": "https://kitchen.example.com/", "url": "https://kitchen.example.com/" },
+        { "id": "21", "title": "財經", "url": "https://money.example.com/tw" },
+        { "id": "22", "title": "面試", "url": "https://notes.example.com/backend" },
+        { "id": "23", "title": "船班", "url": "https://ferry.example.com/" },
+        { "id": "24", "title": "圖書館", "url": "https://library.example.com/" },
+        { "id": "25", "title": "json", "url": "https://tools.example.com/json" },
+        { "id": "26", "title": "水餃", "url": "https://kitchen.example.com/dumplings" },
+        { "id": "27", "title": "便當", "url": "https://bento.example.com/" }
+      ]
+    },
+    { "id": "3", "title": "Mobile bookmarks", "folderType": "mobile", "syncing": false, "children": [] }
+  ],
+  "sites": {
+    "https://kitchen.example.com/": {
+      "title": "阿明的廚房｜家常菜食譜",
+      "description": "阿明的家常菜食譜，三十分鐘上桌。",
+      "text": "阿明的廚房。每週更新的家常菜食譜。"
+    },
+    "https://kitchen.example.com/dumplings": {
+      "title": "手工水餃 - 阿明的廚房",
+      "description": "從擀皮到包餡的水餃做法。",
+      "text": "阿明的廚房。手工水餃，一步一步教。"
+    },
+    "https://bento.example.com/": {
+      "title": "便當日記",
+      "description": "每天一個上班族便當。",
+      "text": "便當日記。三百道便當菜色。"
+    },
+    "https://money.example.com/tw": {
+      "title": "Moneyline 財經新聞 - 台股、匯率、國際財經",
+      "description": "Moneyline：台灣財經新聞與股市行情。",
+      "text": "Moneyline 財經新聞。台股即時行情、匯率與國際財經。"
+    },
+    "https://notes.example.com/backend": {
+      "title": "小陳code｜後端面試筆記",
+      "description": "後端工程師面試題目整理：資料庫、網路、作業系統。",
+      "text": "小陳code。後端面試筆記，持續更新。"
+    },
+    "https://ferry.example.com/": {
+      "title": "Harborline Ferries | 渡輪時刻表",
+      "description": "Harborline 渡輪時刻表與線上訂票。",
+      "text": "Harborline Ferries. 渡輪時刻表、票價與訂票。"
+    },
+    "https://library.example.com/": {
+      "title": "城南社區圖書館",
+      "description": "開館時間、借還書與活動資訊。",
+      "text": "城南社區圖書館。館藏查詢與預約。"
+    },
+    "https://tools.example.com/json": {
+      "title": "Jsonly - JSON formatter",
+      "description": "Format and validate JSON.",
+      "text": "Jsonly. Paste JSON to format and validate it."
+    }
+  }
+}

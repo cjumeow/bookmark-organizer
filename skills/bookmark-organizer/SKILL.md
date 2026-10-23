@@ -44,14 +44,16 @@ check, the backup and the restore.
 
 Every bookmark you organize is renamed `Name: short description`.
 
-- **Name** is what the site calls itself, written the way it writes it: `GitHub`, `MDN`, `Stovetop`, not
-  `github.com` or `GITHUB`. For a bookmark deep inside a site, the Name is still the site's; the description says
-  which part.
-- **Short description** says what this bookmark is for, in as few words as tell it apart from the others: usually two
-  to five. Start lowercase unless it begins with a name, no trailing period, no tagline or marketing ("the best...").
-  Do not repeat the Name in it.
-- One colon and one space between them. Write descriptions in the language the person writes to you in, unless they
-  ask for another or their bookmarks are clearly in one language already.
+- **Name** is the site's English name when it has one, taken from its English title, its logo or its domain, and
+  written the way the site writes it: `GitHub`, `MDN`, `Stovetop`, not `github.com` or `GITHUB`. A site with no
+  English name keeps its own name in its original language and script, neither translated nor romanized: `老王書房`,
+  not `Lao Wang's Study` or `Laowang Shufang`. For a bookmark deep inside a site, the Name is still the site's; the
+  description says which part.
+- **Short description** is always in English, whatever language the person writes to you in or the site is in, so
+  every title in the tree reads the same way. It says what this bookmark is for, in as few words as tell it apart from
+  the others: usually two to five. Start lowercase unless it begins with a name, no trailing period, no tagline or
+  marketing ("the best..."). Do not repeat the Name in it.
+- One colon and one space between them. This rule is for titles only: talk to the person in their own language.
 - A title that already follows the rule and says the right thing stays as it is: do not rename for its own sake.
 
 | URL | Title before | Title after |
@@ -60,6 +62,7 @@ Every bookmark you organize is renamed `Name: short description`.
 | `https://ferrite.example.com/docs/api` | `API Reference - Ferrite \| The fastest...` | `Ferrite: API reference` |
 | `https://stovetop.example.com/curry/chickpea` | `Recipe` | `Stovetop: chickpea curry` |
 | `https://drillbook.example.com/regex` | `https://drillbook.example.com/regex` | `Drillbook: regex exercises` |
+| `https://shufang.example.com/reviews` | `書評` | `老王書房: book reviews` |
 
 ## Checking sites
 

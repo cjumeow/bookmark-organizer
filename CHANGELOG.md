@@ -7,5 +7,6 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ### Added
 
-- The organizer skill, `skills/bookmark-organizer/`: it names every bookmark `Name: short description`, files bookmarks
-  into folders with one catch-all folder, and shows the changes for your agreement before applying them.
+- The organizer skill, `skills/bookmark-organizer/`: it names every bookmark `Name: short description`, with the
+  description in English, files bookmarks into folders with one catch-all folder, and shows the changes for your
+  agreement before applying them.

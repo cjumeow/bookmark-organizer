@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: name-in-english-for-a-chinese-request
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The person writes in Traditional Chinese, yet every description is in English. Sites with an English name (Moneyline,
+  Harborline, Jsonly) use it as the Name; sites with only a Chinese name keep it in Chinese characters (阿明的廚房,
+  小陳code, 城南社區圖書館, 便當日記), neither translated nor romanized. A valid plan, checked and shown to the person,
+  waiting for their agreement.

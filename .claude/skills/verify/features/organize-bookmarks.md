@@ -26,7 +26,7 @@ and the extension run, the skill is driven against a simulation of the tools and
 
 Preconditions:
 
-- Node.js 24, and the evaluation cases in `skills/bookmark-organizer/evals/`: four made-up bookmark trees on
+- Node.js 24, and the evaluation cases in `skills/bookmark-organizer/evals/`: five made-up bookmark trees on
   `example.com`, each with its prompt, its expected outcome and its graders.
 
 - **Run each case with and without the skill.** Copy the case's `files/fixture.json` and `evals/simulate-tools.mjs`
