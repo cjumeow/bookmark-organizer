@@ -20,17 +20,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # A pull request that changes only documentation skips the checks below, none of which reads Markdown. The job
+      # still runs and passes, because check-code is a required check: skipping the whole workflow with `paths-ignore`
+      # would leave it pending and block the merge. Pushes to main always run everything.
+      - name: Decide whether this change needs the code checks
+        id: scope
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ "$EVENT" = "pull_request" ] && [ "$(node scripts/check-docs-only.mjs "$BASE_SHA" "$HEAD_SHA")" = "true" ]; then
+            echo "This pull request changes only documentation, so the code checks are skipped."
+            echo "code=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@v7
+        if: steps.scope.outputs.code == 'true'
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run check:versions
-      - run: npm run build
+      - if: steps.scope.outputs.code == 'true'
+        run: npm ci
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run format:check
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run lint
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run typecheck
+      - if: steps.scope.outputs.code == 'true'
+        run: npm test
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run check:versions
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run build
       # The end-to-end tests load the built extension in Playwright's own Chromium, so they run after the build.
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - if: steps.scope.outputs.code == 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.scope.outputs.code == 'true'
+        run: npm run test:e2e
