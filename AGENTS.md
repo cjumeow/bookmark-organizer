@@ -5,9 +5,9 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: skeleton. Both programs build and start, but neither does anything yet. Next, a `/grill-with-docs` session
-settles the open design decisions and writes the glossary (`GLOSSARY.md`) and ADRs as it goes; the spec
-(`docs/spec.md`) is written afterwards from its conclusions.
+Status: designed, not built. Both programs build and start, but neither does anything yet. What the first version
+does (the MCP tools, the plan format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the
+features are built from it next.
 
 ## A learning project
 
@@ -32,8 +32,9 @@ pull requests) is in English.
 - **The agent judges, the program executes.** Naming and filing bookmarks is the agent's work, guided by the skill.
   The extension and the MCP server never call a language model: they read the bookmark tree, validate a plan, and
   apply it exactly.
-- **Whole plans, not one call per bookmark.** Tools take and return whole trees and plans (read the tree; apply a
-  plan, with a dry run that shows what would change), so reorganizing a hundred bookmarks is one call, not a hundred.
+- **Whole plans, not one call per bookmark.** Tools take and return whole trees and plans (read the tree; check a
+  plan, with a dry run that shows what would change; apply it), so reorganizing a hundred bookmarks is one call, not a
+  hundred.
 - **Nothing changes without a backup.** Applying a plan backs up the tree first, and a backup can be restored.
 - **Bookmarks stay on the computer.** The bridge between the MCP server and the extension listens only on this
   computer and accepts only this extension.
@@ -59,8 +60,8 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | How to prove a change, and the map of user-facing features | `.claude/skills/verify/`, `.claude/skills/verify/features/` |
 | Verification evidence files, kept on this computer and ignored by git | `artifacts/<branch>/` |
 | Design decisions | `docs/adr/` |
-| The domain's terms, one name each (planned) | `GLOSSARY.md` |
-| The spec (planned) | `docs/spec.md` |
+| The domain's terms, one name each | `GLOSSARY.md` |
+| The spec: the MCP tools, the plan format, the bridge protocol, backups | `docs/spec.md` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
 ## Skills and commands to use
