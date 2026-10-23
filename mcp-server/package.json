@@ -8,12 +8,15 @@
     "bookmark-organizer-mcp": "dist/index.js"
   },
   "scripts": {
-    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "node build.mjs",
+    "typecheck": "tsc -p tsconfig.json",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",
     "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@bookmark-organizer/shared": "*"
   }
 }

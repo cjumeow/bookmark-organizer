@@ -32,3 +32,9 @@ small enough to learn.
 - `npm run check` runs every check CI runs, in the same order.
 - Moving to TypeScript 7 waits for typescript-eslint to support it.
 - Pinned versions need deliberate updates; Dependabot can propose them.
+- The bundler came with the shared code (`shared/`, 2026-10-23): **esbuild** bundles both programs, and `tsc` only
+  type-checks. esbuild is one small tool with no configuration file: the extension builds with one command, and the
+  MCP server with a short script (`mcp-server/build.mjs`) that keeps its npm dependencies out of the bundle. Vite would
+  bring its dev server and plugin system, which a service worker with no page does not use. `shared/` has no build of
+  its own, so the MCP server is bundled too: compiled by `tsc` alone, it could not load TypeScript source from another
+  workspace.

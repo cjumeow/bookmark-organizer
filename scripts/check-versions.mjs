@@ -1,4 +1,4 @@
-// The repository has one version, written in four files. Fails when they disagree, naming each file and its version.
+// The repository has one version, written in five files. Fails when they disagree, naming each file and its version.
 //
 //     npm run check:versions
 
@@ -10,6 +10,7 @@ export const VERSIONED_FILE_PATHS = [
   "extension/package.json",
   "extension/manifest.json",
   "mcp-server/package.json",
+  "shared/package.json",
 ];
 
 /** Returns one problem line per file whose version differs from the root package.json's, or none. */
