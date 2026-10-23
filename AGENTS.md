@@ -5,7 +5,8 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: planning. There is no code yet. The spec and the glossary come next, in `docs/`.
+Status: skeleton. Both programs build and start, but neither does anything yet. The spec and the glossary come next,
+in `docs/`.
 
 ## A learning project
 
@@ -41,18 +42,21 @@ pull requests) is in English.
 
 ## Where things go
 
-Planned layout; update this table when it changes.
+Update this table when the layout changes. Rows marked (planned) do not exist yet.
 
 | Looking for | Place |
 |---|---|
-| The Chrome extension (manifest, background service worker) | `extension/` |
-| The MCP server and its tools | `mcp-server/` |
-| The skill that organizes bookmarks, for users | `skills/bookmark-organizer/` |
+| The Chrome extension: `manifest.json`, the background service worker in `src/background.ts` | `extension/` |
+| The MCP server and its tools, starting from `src/index.ts` | `mcp-server/` |
+| Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
+| Repository checks that are not lint rules, with their tests | `scripts/` |
+| The skill that organizes bookmarks, for users (planned) | `skills/bookmark-organizer/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
 | What changed for users, release by release | `CHANGELOG.md` |
 | How to prove a change, and the map of user-facing features | `.claude/skills/verify/`, `.claude/skills/verify/features/` |
 | Verification evidence files, kept on this computer and ignored by git | `artifacts/<branch>/` |
-| Spec, glossary, design decisions | `docs/`, `docs/glossary.md`, `docs/adr/` |
+| Design decisions | `docs/adr/` |
+| Spec and glossary (planned) | `docs/spec.md`, `docs/glossary.md` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
 ## Skills and commands to use
@@ -85,5 +89,17 @@ What counts as proof for each kind of change, how to drive the app in isolation,
 
 ## Commands
 
-None yet. The toolchain (TypeScript, ESLint, Prettier, Vitest, Playwright) comes with the first code; its commands go
-here, the same ones CI runs.
+Node.js 24 (`.nvmrc`). Why the toolchain is what it is: [ADR 1](docs/adr/0001-typescript-toolchain.md).
+
+```bash
+npm install
+npm run check            # everything CI runs, in order: the commands below
+npm run format:check     # Prettier; `npm run format` fixes it
+npm run lint             # ESLint with type-aware rules
+npm run typecheck        # tsc in both workspaces
+npm test                 # Vitest
+npm run check:versions   # one version in package.json, both workspaces and extension/manifest.json
+npm run build            # extension/dist/ and mcp-server/dist/
+```
+
+Dependencies are pinned to exact versions. The version lives in four files; change all four together.

@@ -1,0 +1,35 @@
+{
+  "name": "bookmark-organizer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Organize Chrome bookmarks with a coding agent: a Chrome extension and a local MCP server.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "extension",
+    "mcp-server"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "check:versions": "node scripts/check-versions.mjs",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run check:versions && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.6.5",
+    "eslint": "10.13.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.0",
+    "vitest": "5.0.5"
+  }
+}

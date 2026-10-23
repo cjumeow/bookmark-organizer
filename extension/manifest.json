@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Organizer",
+  "version": "0.1.0",
+  "description": "Lets a coding agent reorganize your bookmarks through a local MCP server.",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
