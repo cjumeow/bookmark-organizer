@@ -51,7 +51,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 |---|---|
 | The Chrome extension: `manifest.json`, the background service worker in `src/background.ts` | `extension/` |
 | The MCP server and its tools, starting from `src/index.ts` | `mcp-server/` |
-| Code both programs use: the spec's types as zod schemas, exported from `src/index.ts` (see Shared code below) | `shared/` |
+| Code both programs use: the spec's types as zod schemas, and the conversion of Chrome's tree into the agent's tree, its revision and outline; exported from `src/index.ts` (see Shared code below) | `shared/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
 | Repository checks that are not lint rules, with their tests | `scripts/` |
 | End-to-end tests: Playwright, the built extension and the bridge | `e2e/` |

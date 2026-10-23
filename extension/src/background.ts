@@ -1,14 +1,11 @@
+import type { ChromeNode } from "@bookmark-organizer/shared";
+
 import { connect, type Handler } from "./bridge.js";
 
 /** The alarm that wakes the service worker to connect while it is not connected. */
 const CONNECT_ALARM = "connect";
 
-/** The fields of Chrome's nodes the server uses (the spec's `ChromeNode`), unchanged. */
-type ChromeNode = Pick<
-  chrome.bookmarks.BookmarkTreeNode,
-  "id" | "title" | "url" | "folderType" | "syncing" | "unmodifiable"
-> & { children?: ChromeNode[] };
-
+/** A node with only the fields the server uses, unchanged otherwise. */
 function toChromeNode(node: chrome.bookmarks.BookmarkTreeNode): ChromeNode {
   return {
     id: node.id,
