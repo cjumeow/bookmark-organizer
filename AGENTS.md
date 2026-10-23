@@ -73,12 +73,18 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | plan a feature or settle an open design decision | [`/grill-with-docs`](.claude/skills/grill-with-docs/SKILL.md), which only the developer can start; it runs `grilling` and `domain-modeling` |
 | stress-test a plan without writing docs | [`grilling`](.claude/skills/grilling/SKILL.md) |
 | name a domain concept, or write `GLOSSARY.md` or an ADR | [`domain-modeling`](.claude/skills/domain-modeling/SKILL.md) |
+| write or change pure logic, such as plan validation, the dry run, the revision or the restore plan | [`tdd`](.claude/skills/tdd/SKILL.md), test-first, one test and its implementation at a time |
+| design a module's interface or decide where a seam goes | [`codebase-design`](.claude/skills/codebase-design/SKILL.md), which `tdd` also calls for its terms |
 | open a pull request | `/code-review` on the change |
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
 | create or change a skill | `skill-creator` |
 
 Add a row when a skill is added under `.claude/skills/`. List only skills that exist.
+
+`tdd` writes tests only at seams confirmed with the developer. An agent working on an issue without the developer
+present takes the seams listed in the issue as confirmed; an issue for pure logic lists its seams, and an agent that
+needs a seam the issue does not list asks before testing there.
 
 ## Workflow
 
