@@ -9,3 +9,4 @@ format is in [`../references/feature-map-format.md`](../references/feature-map-f
 | Read the tree | [read-tree.md](read-tree.md) | MCP tool `get_tree`, extension | proven in #19 |
 | Check a plan | [check-plan.md](check-plan.md) | MCP tool `check_plan`, extension | proven in #19 |
 | Apply a plan | [apply-plan.md](apply-plan.md) | MCP tool `apply_plan`, extension, backups | proven in #21 |
+| Restore a backup | [restore-backup.md](restore-backup.md) | MCP tools `list_backups` and `get_restore_plan`, extension, backups | planned |

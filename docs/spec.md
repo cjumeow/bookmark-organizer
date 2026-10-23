@@ -224,17 +224,23 @@ Computes the plan that brings the current tree back to a backup, with the curren
 the agent passes the plan to `check_plan` and `apply_plan` like any other, so a restore is checked first, backs up the
 tree first, and can itself be restored.
 
-The plan matches nodes by ID. Walking the backup from each special folder down, parents before children and children
-in order:
+The plan matches nodes by ID, and only a folder with a folder and a bookmark with a bookmark of the same URL: Chrome can
+give an ID out again, as after an import, and a plan cannot change a URL. Walking the backup from each special folder
+down, parents before children and children in order:
 
 - A node that still exists is moved back to its folder and position, and renamed back, where it differs.
 - A node that no longer exists is created again, with the key `$restore-<its old ID>`. Chrome gives it a new ID and
   today's date; that cannot be avoided, because Chrome does not let an extension choose either.
 - A bookmark added after the backup stays in its folder, after the restored nodes.
-- A folder that is not in the backup is removed when the restore leaves it empty, and kept otherwise.
+- A folder that is not in the backup is removed when the restore leaves it empty, and kept otherwise. Only folders in
+  the backup's special folders are considered: the backup says nothing about a special folder it does not have.
 
 `skipped` lists the nodes the plan cannot restore, each with its ID, title and reason: a node whose special folder no
-longer exists, or one that is now in the other storage, which a plan may not move it out of.
+longer exists, or one that is now in the other storage, which a plan may not move it out of. What was inside such a node
+in the backup is not restored, and its reason says so: for a special folder that is gone, `skipped` lists what it held
+directly. A node whose title was empty, which Chrome allows and a plan does not, keeps its current title, or is created
+again with its URL as its title (`Untitled folder` for a folder); it is restored otherwise, and listed in `skipped` with
+why.
 
 ### Server instructions
 

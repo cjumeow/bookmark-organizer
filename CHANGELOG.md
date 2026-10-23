@@ -7,6 +7,9 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ### Added
 
+- The MCP tools `list_backups`, which lists the backups `apply_plan` took, and `get_restore_plan`, which turns one
+  into a plan that brings your bookmarks back; you check and apply it like any other plan, so a restore is backed up
+  too and can be undone.
 - The MCP tool `apply_plan`, which applies a plan to your bookmarks after backing up the whole tree to a file only you
   can read (on macOS in `~/Library/Application Support/bookmark-organizer/backups/`), and stops at the first failure.
 - The MCP tools `get_tree`, which reads your bookmark tree (one folder of it, or an outline when it is large), and
