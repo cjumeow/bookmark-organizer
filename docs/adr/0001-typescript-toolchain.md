@@ -1,4 +1,4 @@
-# 1. TypeScript toolchain
+# TypeScript toolchain
 
 Date: 2026-10-23. Status: accepted.
 

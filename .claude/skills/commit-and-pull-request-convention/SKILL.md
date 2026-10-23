@@ -55,7 +55,7 @@ changelog entry of a `feat` or `fix`. The rest is for you and the reviewer.
   `fix: edit bridge.ts and plan.ts` (files, not the change), or `feat(extension): add popup` (no scope).
 - **Body,** when the subject is not enough: prose wrapped at 120 columns that says what was wrong or missing and what
   happens now. Not a list of the files edited, and not the story of how the fix was found.
-- Use the terms in `docs/glossary.md` and the code's names. Name every MCP tool, plan field and extension permission
+- Use the terms in `GLOSSARY.md` and the code's names. Name every MCP tool, plan field and extension permission
   that changes, since the agent and the skill depend on them.
 - **Trailers:** a commit an agent wrote ends with the agent's `Co-Authored-By:` trailer. Commits are not signed off.
 

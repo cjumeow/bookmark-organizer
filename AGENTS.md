@@ -5,8 +5,9 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: skeleton. Both programs build and start, but neither does anything yet. The spec and the glossary come next,
-in `docs/`.
+Status: skeleton. Both programs build and start, but neither does anything yet. Next, a `/grill-with-docs` session
+settles the open design decisions and writes the glossary (`GLOSSARY.md`) and ADRs as it goes; the spec
+(`docs/spec.md`) is written afterwards from its conclusions.
 
 ## A learning project
 
@@ -18,8 +19,9 @@ skills, agent files, testing. So besides doing the task:
   you did not pick and why. Keep it short.
 - Prefer what Claude Code already has (built-in commands, hooks, subagents, worktrees, skills) over writing something
   new, and say which one you used.
-- Record a decision that shapes the project as a short ADR in `docs/adr/NNNN-<title>.md`: the context, the decision,
-  the consequences. Create the folder with the first one.
+- Record a decision as a short ADR in `docs/adr/NNNN-<title>.md` when it is hard to reverse, surprising without
+  context, and the result of a real trade-off. The format and the test are in
+  [`ADR-FORMAT.md`](.claude/skills/domain-modeling/ADR-FORMAT.md).
 - When a practice is worth reusing in other projects, propose turning it into a skill. Do not create one unasked.
 
 Talk with the developer in Traditional Chinese (繁體中文). Everything in the repository (code, docs, commit messages,
@@ -35,7 +37,7 @@ pull requests) is in English.
 - **Nothing changes without a backup.** Applying a plan backs up the tree first, and a backup can be restored.
 - **Bookmarks stay on the computer.** The bridge between the MCP server and the extension listens only on this
   computer and accepts only this extension.
-- **One name per concept** in code, tools, docs and the skill. Terms are defined in `docs/glossary.md` as they are
+- **One name per concept** in code, tools, docs and the skill. Terms are defined in `GLOSSARY.md` as they are
   decided.
 - **A rule a program can check is checked by a program** (a lint rule, a script, a CI step), not only written down.
   Rules that need judgment stay in skills and in review.
@@ -52,11 +54,13 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | Repository checks that are not lint rules, with their tests | `scripts/` |
 | The skill that organizes bookmarks, for users (planned) | `skills/bookmark-organizer/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
+| Where each third-party skill came from, at which commit | `.claude/skills/THIRD_PARTY.md` |
 | What changed for users, release by release | `CHANGELOG.md` |
 | How to prove a change, and the map of user-facing features | `.claude/skills/verify/`, `.claude/skills/verify/features/` |
 | Verification evidence files, kept on this computer and ignored by git | `artifacts/<branch>/` |
 | Design decisions | `docs/adr/` |
-| Spec and glossary (planned) | `docs/spec.md`, `docs/glossary.md` |
+| The domain's terms, one name each (planned) | `GLOSSARY.md` |
+| The spec (planned) | `docs/spec.md` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
 ## Skills and commands to use
@@ -65,6 +69,9 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 |---|---|
 | commit, push a branch, or open or merge a pull request | [`commit-and-pull-request-convention`](.claude/skills/commit-and-pull-request-convention/SKILL.md) |
 | say a change works, or write a pull request's Verification section | [`verify`](.claude/skills/verify/SKILL.md) |
+| plan a feature or settle an open design decision | [`/grill-with-docs`](.claude/skills/grill-with-docs/SKILL.md), which only the developer can start; it runs `grilling` and `domain-modeling` |
+| stress-test a plan without writing docs | [`grilling`](.claude/skills/grilling/SKILL.md) |
+| name a domain concept, or write `GLOSSARY.md` or an ADR | [`domain-modeling`](.claude/skills/domain-modeling/SKILL.md) |
 | open a pull request | `/code-review` on the change |
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
