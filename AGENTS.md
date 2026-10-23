@@ -48,7 +48,8 @@ Planned layout; update this table when it changes.
 | The Chrome extension (manifest, background service worker) | `extension/` |
 | The MCP server and its tools | `mcp-server/` |
 | The skill that organizes bookmarks, for users | `skills/bookmark-organizer/` |
-| Skills for developing this repository | `.claude/skills/<name>/SKILL.md` |
+| Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
+| What changed for users, release by release | `CHANGELOG.md` |
 | Spec, glossary, design decisions | `docs/`, `docs/glossary.md`, `docs/adr/` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
@@ -56,6 +57,7 @@ Planned layout; update this table when it changes.
 
 | Before you | Use |
 |---|---|
+| commit, push a branch, or open or merge a pull request | [`commit-and-pull-request-convention`](.claude/skills/commit-and-pull-request-convention/SKILL.md) |
 | open a pull request | `/code-review` on the change |
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
@@ -66,10 +68,8 @@ Add a row when a skill is added under `.claude/skills/`. List only skills that e
 ## Workflow
 
 - Work on a branch from `main`, one issue per branch, and open a pull request. Pull requests are squash-merged, so the
-  title becomes the commit on `main`.
-- Commit subjects and pull request titles follow Conventional Commits: `<type>: <sentence>`, English, imperative,
-  lowercase start, no trailing period (`feat: apply a plan with a dry run first`). Types: `feat`, `fix`, `refactor`,
-  `docs`, `test`, `ci`, `chore`.
+  title becomes the commit on `main`. How to write branches, commits, the changelog and pull requests is in
+  [`commit-and-pull-request-convention`](.claude/skills/commit-and-pull-request-convention/SKILL.md).
 - Keep pull requests small enough to read in one sitting. Never merge code you cannot explain.
 - A change to what a document in `docs/` describes updates that document in the same pull request.
 
