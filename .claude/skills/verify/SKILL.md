@@ -72,9 +72,18 @@ Rules that keep a run safe and its evidence trustworthy:
 - **Kill only what you started**, never by process name.
 - **Cleanup keeps the evidence.** Tear down browsers, servers and temporary profiles; keep the artifacts.
 
-The app cannot run yet, so there is no launch recipe. When `extension/` and `mcp-server/` first run, record the
-recipe with `/run-skill-generator`, add a section here that points to it with the readiness check and teardown, and
-prove both by running them once end to end.
+### The launch recipe
+
+[`run-bookmark-organizer`](../run-bookmark-organizer/SKILL.md) launches the built extension in Playwright's Chromium
+with a temporary profile and opens the bridge: `npm run build && npm run test:e2e`, from a clean checkout of the
+commit to prove.
+
+- **Ready** when the `serviceWorker` fixture resolves at `chrome-extension://ancijliidboahicggjggbhlflehlnbjg/` and
+  the first `bridge.request` resolves, about 30 seconds later, on the extension's next alarm.
+- **Teardown** is in the fixtures: the browser closes, the temporary profile is deleted and the bridge frees port
+  47615, even when a test fails. The evidence stays in `artifacts/e2e/`.
+
+Update the recipe when building or launching changes.
 
 ## Feature map
 

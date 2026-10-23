@@ -5,9 +5,9 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: designed, not built. Both programs build and start, but neither does anything yet. What the first version
-does (the MCP tools, the plan format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the
-features are built from it next.
+Status: being built. The extension connects to the MCP server over the bridge and answers `getTree`; the server has
+no MCP tools yet. What the first version does (the MCP tools, the plan format, the bridge protocol and backups) is
+in the spec, `docs/spec.md`, and the features are built from it.
 
 ## A learning project
 
@@ -54,6 +54,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | Code both programs use: the spec's types as zod schemas, and the conversion of Chrome's tree into the agent's tree, its revision and outline; exported from `src/index.ts` (see Shared code below) | `shared/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
 | Repository checks that are not lint rules, with their tests | `scripts/` |
+| End-to-end tests: Playwright, the built extension and the bridge | `e2e/` |
 | The skill that organizes bookmarks, for users, and its evaluations | `skills/bookmark-organizer/`, `skills/bookmark-organizer/evals/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
 | Where each third-party skill came from, at which commit | `.claude/skills/THIRD_PARTY.md` |
@@ -97,6 +98,7 @@ bundles it into `extension/dist/background.js` and `mcp-server/dist/index.js`.
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
 | create or change a skill | `skill-creator` |
+| launch the extension and the bridge in isolation | [`run-bookmark-organizer`](.claude/skills/run-bookmark-organizer/SKILL.md) |
 
 Add a row when a skill is added under `.claude/skills/`. List only skills that exist.
 
@@ -125,6 +127,7 @@ Node.js 24 (`.nvmrc`). Why the toolchain is what it is: [ADR 1](docs/adr/0001-ty
 
 ```bash
 npm install
+npx playwright install chromium   # once: the browser the end-to-end tests use
 npm run check            # everything CI runs, in order: the commands below
 npm run format:check     # Prettier; `npm run format` fixes it
 npm run lint             # ESLint with type-aware rules
@@ -132,6 +135,7 @@ npm run typecheck        # tsc in every workspace
 npm test                 # Vitest
 npm run check:versions   # one version in package.json, every workspace and extension/manifest.json
 npm run build            # esbuild: extension/dist/ and mcp-server/dist/
+npm run test:e2e         # Playwright: the built extension connects over the bridge
 ```
 
 Dependencies are pinned to exact versions. The version lives in five files; change all five together.
