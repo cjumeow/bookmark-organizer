@@ -1,4 +1,4 @@
-import type { ChromeNode } from "@bookmark-organizer/shared";
+import type { ChromeNode, GetTreeResult } from "@bookmark-organizer/shared";
 
 import { connect, type Handler } from "./bridge.js";
 
@@ -19,7 +19,7 @@ function toChromeNode(node: chrome.bookmarks.BookmarkTreeNode): ChromeNode {
 }
 
 const handlers: Record<string, Handler> = {
-  async getTree(): Promise<{ tree: ChromeNode[] }> {
+  async getTree(): Promise<GetTreeResult> {
     const [root] = await chrome.bookmarks.getTree();
     return { tree: (root?.children ?? []).map(toChromeNode) };
   },

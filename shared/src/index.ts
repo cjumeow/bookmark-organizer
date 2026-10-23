@@ -6,6 +6,7 @@ export {
   BridgeResponse,
   CloseCode,
   EXTENSION_ID,
+  GetTreeResult,
   HelloParams,
   HelloResult,
   ResponseError,

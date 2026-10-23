@@ -261,6 +261,10 @@ A tool that cannot do its work returns an MCP error result (`isError: true`) who
 | The extension disconnects before it answers | The extension disconnected before it answered; for `apply_plan`, as above. |
 | An unknown `backupId` or `folderId` | That backup (or folder) does not exist. |
 
+A plan written against an older tree is not an error result: `check_plan` and `apply_plan` report it as a broken rule
+of the whole plan (operation `-1`), with the text above, beside the plan's other broken rules. An input that does not
+fit a tool's schema, such as a misspelled field, is an error result that names the field.
+
 ## Bridge
 
 The bridge is a WebSocket on `127.0.0.1` ([ADR 2](adr/0002-websocket-bridge.md)).

@@ -21,8 +21,8 @@ them only after the person agrees, and restores a backup when asked.
 
 ## Driving it
 
-The organizer skill is written, but the MCP tools are not built yet, so the feature is `planned`. Until the MCP server
-and the extension run, the skill is driven against a simulation of the tools and the web.
+The organizer skill is written, and `get_tree` and `check_plan` are built, but `apply_plan` and the restore tools are
+not, so the feature is `planned`. Until they are, the skill is driven against a simulation of the tools and the web.
 
 Preconditions:
 

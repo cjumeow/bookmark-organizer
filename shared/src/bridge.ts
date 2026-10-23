@@ -3,6 +3,8 @@
 
 import { z } from "zod";
 
+import { ChromeNode } from "./chrome-node.js";
+
 /** The port the MCP server listens on and the extension connects to, on 127.0.0.1. */
 export const BRIDGE_PORT = 47615;
 
@@ -45,3 +47,7 @@ export const HelloParams = z.strictObject({ version: z.string() });
 export type HelloParams = z.infer<typeof HelloParams>;
 export const HelloResult = HelloParams;
 export type HelloResult = HelloParams;
+
+/** `getTree`'s result: Chrome's whole tree, below the root. */
+export const GetTreeResult = z.strictObject({ tree: z.array(ChromeNode) });
+export type GetTreeResult = z.infer<typeof GetTreeResult>;
