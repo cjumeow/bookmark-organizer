@@ -53,7 +53,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | The MCP server and its tools, starting from `src/index.ts` | `mcp-server/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
 | Repository checks that are not lint rules, with their tests | `scripts/` |
-| The skill that organizes bookmarks, for users (planned) | `skills/bookmark-organizer/` |
+| The skill that organizes bookmarks, for users, and its evaluations | `skills/bookmark-organizer/`, `skills/bookmark-organizer/evals/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
 | Where each third-party skill came from, at which commit | `.claude/skills/THIRD_PARTY.md` |
 | What changed for users, release by release | `CHANGELOG.md` |

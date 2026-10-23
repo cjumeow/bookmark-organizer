@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: keep-storages-apart
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A valid plan, checked and shown to the person, waiting for their agreement, that never moves a bookmark between
+  local and account storage: the programming bookmarks are gathered within each storage, and the person is told why
+  the two storages are kept apart. Renamed bookmarks follow "Name: short description"; at most one catch-all folder per
+  storage, not called Other.

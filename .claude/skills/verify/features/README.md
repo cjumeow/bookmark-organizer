@@ -5,5 +5,4 @@ format is in [`../references/feature-map-format.md`](../references/feature-map-f
 
 | Feature | File | Surfaces | Status |
 |---|---|---|---|
-
-No feature exists yet. The pull request that adds the first one adds its row and its file.
+| Organize bookmarks | [organize-bookmarks.md](organize-bookmarks.md) | the organizer skill, MCP tools | planned |
