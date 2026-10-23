@@ -1,10 +1,11 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
+import { createBackupStore } from "./backups.js";
 import { createBridge } from "./bridge.js";
 import { createServer, version } from "./server.js";
 
 const bridge = createBridge({ version });
-const server = createServer(bridge);
+const server = createServer(bridge, createBackupStore());
 // When the agent disconnects, free the bridge's port now rather than after 10 idle minutes, so another session can
 // use it, and let the process exit.
 server.server.onclose = () => {

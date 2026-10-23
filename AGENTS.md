@@ -5,9 +5,10 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: being built. The MCP server has the read-only tools `get_tree` and `check_plan`, which read the tree through
-the extension over the bridge; `apply_plan` and backups are next. What the first version does (the MCP tools, the plan
-format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the features are built from it.
+Status: being built. The MCP server has the read-only tools `get_tree` and `check_plan`, and `apply_plan`, which backs
+up the tree and has the extension apply a plan; `list_backups` and `get_restore_plan` are next. What the first version
+does (the MCP tools, the plan format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the features
+are built from it.
 
 ## A learning project
 
@@ -54,7 +55,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | Code both programs use: the spec's types as zod schemas, and the conversion of Chrome's tree into the agent's tree, its revision and outline; exported from `src/index.ts` (see Shared code below) | `shared/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
 | Repository checks that are not lint rules, with their tests | `scripts/` |
-| End-to-end tests: Playwright, the built extension, and the built MCP server driven by the MCP SDK's client | `e2e/` |
+| End-to-end tests: Playwright, the built extension, and the built MCP server driven by the MCP SDK's client, with a Node WebSocket that plays the extension in `e2e/fake-extension.ts` | `e2e/` |
 | The skill that organizes bookmarks, for users, and its evaluations | `skills/bookmark-organizer/`, `skills/bookmark-organizer/evals/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |
 | Where each third-party skill came from, at which commit | `.claude/skills/THIRD_PARTY.md` |

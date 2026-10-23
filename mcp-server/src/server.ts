@@ -3,13 +3,23 @@
 
 import { readFileSync } from "node:fs";
 
-import { GetTreeResult, Plan, revisionOf, selectTree, toTree, type TreeNode } from "@bookmark-organizer/shared";
+import {
+  ApplyOperationsResult,
+  ErrorCode,
+  GetTreeResult,
+  Plan,
+  revisionOf,
+  selectTree,
+  toTree,
+  type TreeNode,
+} from "@bookmark-organizer/shared";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
-import type { Bridge } from "./bridge.js";
-import { checkPlan } from "./check-plan.js";
+import type { BackupFile, BackupStore } from "./backups.js";
+import { type Bridge, BridgeError } from "./bridge.js";
+import { checkPlan, type CheckResult, STALE_PLAN, WHOLE_PLAN } from "./check-plan.js";
 
 // package.json is the one place the version is written; dist/ and src/ both sit beside it.
 export const { version } = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")) as {
@@ -22,7 +32,7 @@ const INSTRUCTIONS =
   "bookmark-organizer skill. Run check_plan and show the person its changes before apply_plan, and apply only after " +
   "they agree.";
 
-export function createServer(bridge: Bridge): McpServer {
+export function createServer(bridge: Bridge, backups: BackupStore): McpServer {
   const server = new McpServer({ name: "bookmark-organizer", version }, { instructions: INSTRUCTIONS });
 
   /** The tree as it is now: the server holds no bookmark state, so every tool reads it fresh from the extension. */
@@ -67,7 +77,55 @@ export function createServer(bridge: Bridge): McpServer {
     },
   );
 
+  server.registerTool(
+    "apply_plan",
+    {
+      description:
+        "Changes the Chrome bookmarks: checks the plan as check_plan does, backs up the whole tree, then runs the " +
+        "operations in order. Call it only with a plan whose check_plan changes the person has seen and agreed to. " +
+        "An invalid plan returns its errors, as check_plan does, and changes nothing. Otherwise returns the backup's " +
+        "ID, how many operations ran, the ID Chrome gave each created node by its key, and the tree's new revision. " +
+        "The operations stop at the first one that fails, with failed saying which and why; the ones before it stay " +
+        "applied, and the backup holds the tree as it was before.",
+      inputSchema: Plan,
+      annotations: { destructiveHint: true },
+    },
+    async (plan) => {
+      const tree = await readTree();
+      const revision = await revisionOf(tree);
+      const check = checkPlan(tree, revision, plan);
+      if (!check.valid) return json(check);
+
+      let backup: BackupFile;
+      try {
+        backup = await backups.write({ version, revision, tree, plan });
+      } catch (error) {
+        throw new Error(`The backup could not be written, so nothing changed: ${messageOf(error)}`, { cause: error });
+      }
+
+      try {
+        const params = { revision, operations: plan.operations };
+        const result = ApplyOperationsResult.parse(await bridge.request("applyOperations", params));
+        return json({ backupId: backup.id, ...result });
+      } catch (error) {
+        // The person changed the tree after it was read here: the extension changed nothing.
+        if (error instanceof BridgeError && error.code === ErrorCode.revisionMismatch) {
+          const stale: CheckResult = { valid: false, errors: [{ operation: WHOLE_PLAN, message: STALE_PLAN }] };
+          return json(stale);
+        }
+        throw new Error(
+          `${messageOf(error)} Some operations may have run; the backup taken before them is ${backup.id}.`,
+          { cause: error },
+        );
+      }
+    },
+  );
+
   return server;
+}
+
+function messageOf(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }
 
 /** A tool's result as compact JSON, which the outline's size limit is measured in. */

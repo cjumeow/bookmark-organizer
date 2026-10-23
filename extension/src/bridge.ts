@@ -9,6 +9,17 @@ const KEEPALIVE_INTERVAL_MS = 20_000;
 /** Answers one request's params with its result, or throws to answer with an error. */
 export type Handler = (params: unknown) => Promise<unknown>;
 
+/** An error a handler throws to answer with its own code; any other error is answered as `chrome-error`. */
+export class RequestError extends Error {
+  readonly code: string;
+
+  constructor(code: string, message: string) {
+    super(message);
+    this.name = "RequestError";
+    this.code = code;
+  }
+}
+
 let socket: WebSocket | undefined;
 let nextId = 1;
 let connectingSince = 0;
@@ -56,10 +67,8 @@ export function connect(handlers: Record<string, Handler>): void {
           send({ id, result });
         },
         (error: unknown) => {
-          send({
-            id,
-            error: { code: "chrome-error", message: error instanceof Error ? error.message : String(error) },
-          });
+          const code = error instanceof RequestError ? error.code : "chrome-error";
+          send({ id, error: { code, message: error instanceof Error ? error.message : String(error) } });
         },
       );
     }

@@ -1,5 +1,11 @@
-import type { ChromeNode, GetTreeResult } from "@bookmark-organizer/shared";
+import {
+  ApplyOperationsParams,
+  type ApplyOperationsResult,
+  type ChromeNode,
+  type GetTreeResult,
+} from "@bookmark-organizer/shared";
 
+import { applyOperations } from "./apply.js";
 import { connect, type Handler } from "./bridge.js";
 
 /** The alarm that wakes the service worker to connect while it is not connected. */
@@ -22,6 +28,11 @@ const handlers: Record<string, Handler> = {
   async getTree(): Promise<GetTreeResult> {
     const [root] = await chrome.bookmarks.getTree();
     return { tree: (root?.children ?? []).map(toChromeNode) };
+  },
+  // Async, so params that do not parse are answered with an error rather than thrown in the message listener.
+  async applyOperations(params): Promise<ApplyOperationsResult> {
+    const { revision, operations } = ApplyOperationsParams.parse(params);
+    return await applyOperations(chrome.bookmarks, revision, operations);
   },
 };
 

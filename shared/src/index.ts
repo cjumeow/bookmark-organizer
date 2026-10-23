@@ -1,10 +1,13 @@
 export {
+  ApplyOperationsParams,
+  ApplyOperationsResult,
   BRIDGE_PORT,
   BridgeMessage,
   BridgeNotification,
   BridgeRequest,
   BridgeResponse,
   CloseCode,
+  ErrorCode,
   EXTENSION_ID,
   GetTreeResult,
   HelloParams,
