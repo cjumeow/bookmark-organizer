@@ -43,7 +43,8 @@ This runs `e2e/*.e2e.ts` with the fixtures in `e2e/fixtures.ts`:
    `chrome-extension://ancijliidboahicggjggbhlflehlnbjg/background.js`.
 2. **Seed.** `serviceWorker.evaluate(() => chrome.bookmarks.create(...))` adds made-up bookmarks on `example.com`.
 3. **Server.** The `mcp` fixture starts the built server, `mcp-server/dist/index.js`, with the MCP SDK's client over
-   stdio, as Claude Code starts it. `mcp.call("get_tree")` opens the bridge's listener and waits for the extension;
+   stdio, as Claude Code starts it, with `BOOKMARK_ORGANIZER_DATA_DIR` set to the `dataDir` fixture's temporary
+   folder (`$TMPDIR/bookmark-organizer-e2e-data-*`), so `apply_plan`'s backups never reach the real data folder. `mcp.call("get_tree")` opens the bridge's listener and waits for the extension;
    every request and response goes to the test's output and to its `mcp-transcript.txt` attachment.
 4. **Observe** outside the bridge with `serviceWorker.evaluate(() => chrome.bookmarks.getTree())`.
 
@@ -60,7 +61,7 @@ extension to misbehave (another version, a disconnect) plays it with a Node `ws`
 
 ## Teardown
 
-The fixtures close the browser and delete the temporary profile, and close the MCP client, which ends the server and
+The fixtures close the browser and delete the temporary profile and data folder, and close the MCP client, which ends the server and
 frees the port, even when a test fails. Kill only processes you started, by their PID, never by name. Evidence stays:
 `artifacts/e2e/` holds each test's attachments (`mcp-transcript.txt`) and, on failure, its error context.
 
@@ -68,7 +69,9 @@ frees the port, even when a test fails. Kill only processes you started, by thei
 
 - Port 47615 is fixed. If a real MCP server of this project is running, the test's server fails with "Another session
   is using the bridge"; and a Chrome of yours with the extension loaded would connect to the test's server. Close
-  both before running.
+  both before running. The same goes for another checkout of this project running its E2E tests at the same time,
+  such as another session's worktree: its test browser's extension connects to whichever server holds the port.
+  Check with `lsof -nP -iTCP:47615 -sTCP:LISTEN` and `ps -ax -o pid,command | grep "playwright test"`, and wait.
 - The special folders' titles follow the browser's language (`其他書籤` for Other bookmarks on a Chinese system); match
   them by `folderType`, never by title.
 - The headless shell (`chromium-headless-shell`) does not load extensions; the fixture asks for `channel: "chromium"`.

@@ -81,8 +81,9 @@ commit to prove.
 - **Ready** when the `serviceWorker` fixture resolves at `chrome-extension://ancijliidboahicggjggbhlflehlnbjg/` and
   the `mcp` fixture's first tool call that needs Chrome returns, about 30 seconds later, on the extension's next
   alarm.
-- **Teardown** is in the fixtures: the browser closes, the temporary profile is deleted and the MCP client closes,
-  which ends the server and frees port 47615, even when a test fails. The evidence stays in `artifacts/e2e/`.
+- **Teardown** is in the fixtures: the browser closes, the temporary profile and data folder are deleted and the MCP
+  client closes, which ends the server and frees port 47615, even when a test fails. The evidence stays in
+  `artifacts/e2e/`.
 
 Update the recipe when building or launching changes.
 

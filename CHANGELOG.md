@@ -7,6 +7,8 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ### Added
 
+- The MCP tool `apply_plan`, which applies a plan to your bookmarks after backing up the whole tree to a file only you
+  can read (on macOS in `~/Library/Application Support/bookmark-organizer/backups/`), and stops at the first failure.
 - The MCP tools `get_tree`, which reads your bookmark tree (one folder of it, or an outline when it is large), and
   `check_plan`, which shows line by line what a plan would change, without changing anything.
 - The extension connects to the MCP server over a WebSocket on `127.0.0.1:47615` and answers it with your bookmark

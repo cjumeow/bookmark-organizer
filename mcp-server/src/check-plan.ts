@@ -21,6 +21,9 @@ export type CheckResult = { valid: true; summary: Summary; changes: string[] } |
 /** An error that belongs to the whole plan rather than to one operation, such as a stale revision. */
 export const WHOLE_PLAN = -1;
 
+/** What a plan written against an older tree is told, as the error of the whole plan. */
+export const STALE_PLAN = "The bookmarks changed; call get_tree again and rewrite the plan.";
+
 // Chrome's IDs are digits, so a key never looks like one.
 const KEY = /^\$[a-z0-9-]+$/;
 
@@ -39,7 +42,7 @@ interface CopyNode {
 export function checkPlan(tree: TreeNode[], currentRevision: string, plan: Plan): CheckResult {
   const errors: PlanError[] = [];
   if (plan.revision !== currentRevision) {
-    errors.push({ operation: WHOLE_PLAN, message: "The bookmarks changed; call get_tree again and rewrite the plan." });
+    errors.push({ operation: WHOLE_PLAN, message: STALE_PLAN });
   }
 
   const nodes = new Map<string, CopyNode>();

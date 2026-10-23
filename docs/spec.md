@@ -154,7 +154,7 @@ node lands: before the node that follows it, or at the end.
 |---|---|---|---|
 | `get_tree` | no | `{ folderId?: string }` | `{ revision, tree: TreeNode[] }` or `{ revision, outline: OutlineFolder[] }` |
 | `check_plan` | no | `Plan` | `{ valid: true, summary, changes }` or `{ valid: false, errors }` |
-| `apply_plan` | yes | `Plan` | `{ backupId, applied, created, revision, failed? }` |
+| `apply_plan` | yes | `Plan` | `{ backupId, applied, created, revision, failed? }` or `{ valid: false, errors }` |
 | `list_backups` | no | `{}` | `{ backups }` |
 | `get_restore_plan` | no | `{ backupId: string }` | `{ plan, skipped }` |
 
@@ -188,7 +188,8 @@ type CheckResult =
    changes nothing.
 2. Writes a backup of the whole tree. When the backup cannot be written, it stops; nothing has changed.
 3. Sends the operations to the extension, which compares the revision again just before it starts, to narrow the gap
-   in which the person could change the tree.
+   in which the person could change the tree. When the tree changed, the extension changes nothing and `apply_plan`
+   returns the same error of the whole plan as step 1; the backup it wrote stays, like every backup.
 4. The extension runs the operations in order and stops at the first one that fails. Chrome has no transactions, so
    the operations before it stay applied; nothing rolls them back, since a rollback could fail too. The agent tells the
    person and offers to restore the backup.
@@ -257,6 +258,7 @@ A tool that cannot do its work returns an MCP error result (`isError: true`) who
 | Another Claude Code session holds the bridge's port | Another session is using the bridge; finish there or close it. |
 | The extension's version differs from the server's | Update the extension (version X) to match the server (version Y). |
 | The tree changed since the plan's revision | The bookmarks changed; call `get_tree` again and rewrite the plan. |
+| The backup cannot be written | The backup could not be written, so nothing changed, and why. |
 | No answer from the extension within 60 seconds | The extension did not answer; for `apply_plan`, some operations may have run, and the backup ID is given. |
 | The extension disconnects before it answers | The extension disconnected before it answered; for `apply_plan`, as above. |
 | An unknown `backupId` or `folderId` | That backup (or folder) does not exist. |

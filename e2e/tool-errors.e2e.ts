@@ -2,19 +2,14 @@
 // Node WebSocket plays the extension where one is needed.
 
 import { spawn } from "node:child_process";
-import { readFileSync } from "node:fs";
 import { createServer, type Server } from "node:http";
 import { connect } from "node:net";
 import { fileURLToPath } from "node:url";
 
-import { BRIDGE_PORT, BridgeRequest, EXTENSION_ID } from "@bookmark-organizer/shared";
-import WebSocket from "ws";
+import { BRIDGE_PORT, BridgeRequest } from "@bookmark-organizer/shared";
 
+import { connectAsExtension, version } from "./fake-extension.js";
 import { expect, test, textOf } from "./fixtures.js";
-
-const { version } = JSON.parse(readFileSync(new URL("../mcp-server/package.json", import.meta.url), "utf8")) as {
-  version: string;
-};
 
 /** Listens on the bridge's port, as another session's server would, or rejects when the port is taken. */
 async function holdPort(): Promise<Server> {
@@ -40,33 +35,9 @@ function isListening(): Promise<boolean> {
   });
 }
 
-/**
- * Connects as the extension does, retrying until the server's listener is up, and says `hello` with `extensionVersion`.
- * Resolves to the socket once the hello is sent.
- */
-async function connectAsExtension(extensionVersion: string): Promise<WebSocket> {
-  for (let attempt = 0; attempt < 100; attempt++) {
-    const socket = new WebSocket(`ws://127.0.0.1:${String(BRIDGE_PORT)}`, {
-      origin: `chrome-extension://${EXTENSION_ID}`,
-    });
-    const opened = await new Promise<boolean>((resolve) => {
-      socket.once("open", () => {
-        resolve(true);
-      });
-      socket.once("error", () => {
-        resolve(false);
-      });
-    });
-    if (opened) {
-      socket.send(JSON.stringify({ id: 1, method: "hello", params: { version: extensionVersion } }));
-      return socket;
-    }
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-  throw new Error("The server's bridge never listened");
-}
-
-test("the server sends its instructions and offers get_tree and check_plan as read-only tools", async ({ mcp }) => {
+test("the server sends its instructions and offers apply_plan as the one tool that changes bookmarks", async ({
+  mcp,
+}) => {
   const instructions = mcp.client.getInstructions();
   const { tools } = await mcp.client.listTools();
   console.log(`instructions: ${JSON.stringify(instructions)}\ntools/list: ${JSON.stringify(tools, null, 2)}`);
@@ -79,6 +50,7 @@ test("the server sends its instructions and offers get_tree and check_plan as re
   expect(tools.map(({ name, annotations }) => ({ name, annotations }))).toEqual([
     { name: "get_tree", annotations: { readOnlyHint: true } },
     { name: "check_plan", annotations: { readOnlyHint: true } },
+    { name: "apply_plan", annotations: { destructiveHint: true } },
   ]);
 });
 
@@ -139,11 +111,12 @@ test("check_plan refuses an operation with a field the plan format does not have
   expect(textOf(result)).toContain('"idx"');
 });
 
-test("the server frees the bridge's port and exits when the agent closes its input", async () => {
+test("the server frees the bridge's port and exits when the agent closes its input", async ({ dataDir }) => {
   // Spawned by hand rather than with the SDK's client, whose close() also sends SIGTERM and would hide a server that
   // stays up.
   const server = spawn(process.execPath, [fileURLToPath(new URL("../mcp-server/dist/index.js", import.meta.url))], {
     stdio: ["pipe", "ignore", "inherit"],
+    env: { ...process.env, BOOKMARK_ORGANIZER_DATA_DIR: dataDir },
   });
   const exited = new Promise<number | null>((resolve) => server.once("exit", resolve));
   try {
