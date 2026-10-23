@@ -22,7 +22,8 @@ Agent ──MCP──▶ MCP server ──WebSocket on 127.0.0.1──▶ Chrome
 
 ## Install from source
 
-You need Node.js 24, Chrome 134 or later, and [Claude Code](https://claude.com/claude-code).
+You need Node.js 24, Chrome 134 or later, and a coding agent that speaks MCP. The steps below use
+[Claude Code](https://claude.com/claude-code), the only agent it has been tested with so far.
 
 1. Build it, in a clone you keep for using it rather than developing it:
 
@@ -33,19 +34,25 @@ You need Node.js 24, Chrome 134 or later, and [Claude Code](https://claude.com/c
 
 2. Load the extension: open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select
    `~/bookmark-organizer-app/extension/dist`. Its ID is `ancijliidboahicggjggbhlflehlnbjg`.
-3. Register the MCP server with Claude Code:
+3. Register the MCP server with your agent. It is a stdio server: the agent starts it with
+   `node ~/bookmark-organizer-app/mcp-server/dist/index.js` and talks to it over stdin and stdout. In Claude Code:
 
    ```bash
    claude mcp add bookmark-organizer -s user -- node ~/bookmark-organizer-app/mcp-server/dist/index.js
    ```
 
-4. Give Claude Code the organizer skill:
+   Other agents, such as Cursor (`~/.cursor/mcp.json`) or Codex (`~/.codex/config.toml`), take the same command and
+   argument in their own MCP configuration; write the path out in full there, since `~` is not expanded.
+
+4. Give your agent the organizer skill, which holds the rules for naming and filing. In Claude Code:
 
    ```bash
    ln -s ~/bookmark-organizer-app/skills/bookmark-organizer ~/.claude/skills/bookmark-organizer
    ```
 
-5. Start a new Claude Code session, so it loads the server.
+   An agent without the skill can still use the tools, but does not know the naming rules.
+
+5. Start a new session of your agent, so it loads the server.
 
 ## Use it
 
@@ -68,7 +75,8 @@ The first request after the server starts can take up to 30 seconds while the ex
 ## Limits
 
 - Turn the extension on in one Chrome profile only. With several, the agent works on whichever connected first.
-- Bookmarks never move between local and account storage.
+- It never moves a bookmark between "only on this device" and "saved in your Google Account", since that would upload
+  it to Google or take it off your other devices. It tidies each group on its own.
 - No changes to URLs, and no popup or other interface in the extension yet.
 
 ## Develop
