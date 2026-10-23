@@ -51,6 +51,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 |---|---|
 | The Chrome extension: `manifest.json`, the background service worker in `src/background.ts` | `extension/` |
 | The MCP server and its tools, starting from `src/index.ts` | `mcp-server/` |
+| Code both programs use: the spec's types as zod schemas, exported from `src/index.ts` (see Shared code below) | `shared/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
 | Repository checks that are not lint rules, with their tests | `scripts/` |
 | The skill that organizes bookmarks, for users (planned) | `skills/bookmark-organizer/` |
@@ -63,6 +64,23 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | The domain's terms, one name each | `GLOSSARY.md` |
 | The spec: the MCP tools, the plan format, the bridge protocol, backups | `docs/spec.md` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
+
+### Shared code
+
+`shared/` is the workspace `@bookmark-organizer/shared`, which holds what the extension and the MCP server both use.
+It is TypeScript source with no build of its own: `tsc`, Vitest and esbuild read `shared/src/` directly, and esbuild
+bundles it into `extension/dist/background.js` and `mcp-server/dist/index.js`.
+
+- Import it by its package name, `@bookmark-organizer/shared`, never by a relative path. `shared/src/index.ts` exports
+  everything that is public.
+- A type from the spec is a zod schema and the type inferred from it, under one name: `Plan.parse(input)` and
+  `type Plan`. The MCP tools use the schema as their input schema.
+- Its objects are strict: a field the spec does not have is refused, not dropped.
+- It runs in both a service worker and Node.js, so it uses neither `chrome` nor Node's modules, only what both have,
+  such as `URL` and `crypto.subtle`. Its `tsconfig.json` loads the types of a web worker and not those of `chrome` or
+  Node, so `npm run typecheck` fails when it uses either.
+- The workspaces list it in `devDependencies`, since it is bundled in. The MCP server's bundle leaves out its other
+  `dependencies`, which load from `node_modules` (`mcp-server/build.mjs`).
 
 ## Skills and commands to use
 
@@ -110,10 +128,10 @@ npm install
 npm run check            # everything CI runs, in order: the commands below
 npm run format:check     # Prettier; `npm run format` fixes it
 npm run lint             # ESLint with type-aware rules
-npm run typecheck        # tsc in both workspaces
+npm run typecheck        # tsc in every workspace
 npm test                 # Vitest
-npm run check:versions   # one version in package.json, both workspaces and extension/manifest.json
-npm run build            # extension/dist/ and mcp-server/dist/
+npm run check:versions   # one version in package.json, every workspace and extension/manifest.json
+npm run build            # esbuild: extension/dist/ and mcp-server/dist/
 ```
 
-Dependencies are pinned to exact versions. The version lives in four files; change all four together.
+Dependencies are pinned to exact versions. The version lives in five files; change all five together.

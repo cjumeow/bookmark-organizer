@@ -297,7 +297,7 @@ type Notification = { method: string; params?: unknown }; // no id, no answer
 | `getTree` request | server | — | `{ tree: ChromeNode[] }` |
 | `applyOperations` request | server | `{ revision: string; operations: Operation[] }` | `{ applied, created, revision, failed? }` |
 
-- **`hello`:** the server answers only when the versions are equal (one version is written in all four version files)
+- **`hello`:** the server answers only when the versions are equal (one version is written in all five version files)
   and otherwise closes the connection with code `4002`, so tools report the mismatch.
 - **`getTree`** returns Chrome's whole tree, below the root, as nodes with `id`, `title`, `url`, `children`,
   `folderType`, `syncing` and `unmodifiable`. The server drops managed nodes and computes the revision, `get_tree`'s
