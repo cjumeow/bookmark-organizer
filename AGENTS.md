@@ -97,7 +97,10 @@ bundles it into `extension/dist/background.js` and `mcp-server/dist/index.js`.
 | open a pull request | `/code-review` on the change |
 | change the bridge, a network listener, or the extension's permissions | `/security-review` |
 | finish a change that grew larger than planned | `/simplify` |
+| debug a failing test, a broken feature or a regression | [`diagnosing-bugs`](.claude/skills/diagnosing-bugs/SKILL.md) |
 | create or change a skill | `skill-creator` |
+| write or edit a skill or `AGENTS.md` | [`writing-for-agents`](.claude/skills/writing-for-agents/SKILL.md), alongside `skill-creator` |
+| look back on a finished issue or session and improve the agent's environment | [`/retro`](.claude/skills/retro/SKILL.md), which only the developer can start; it runs `writing-for-agents` |
 | launch the extension and the bridge in isolation | [`run-bookmark-organizer`](.claude/skills/run-bookmark-organizer/SKILL.md) |
 
 Add a row when a skill is added under `.claude/skills/`. List only skills that exist.
