@@ -42,29 +42,33 @@ This runs `e2e/*.e2e.ts` with the fixtures in `e2e/fixtures.ts`:
    with `--load-extension=extension/dist`. The `serviceWorker` fixture is the extension's worker, at
    `chrome-extension://ancijliidboahicggjggbhlflehlnbjg/background.js`.
 2. **Seed.** `serviceWorker.evaluate(() => chrome.bookmarks.create(...))` adds made-up bookmarks on `example.com`.
-3. **Bridge.** `createBridge({ version }).request("getTree")` from `mcp-server/src/bridge.ts` opens the listener and
-   waits for the extension.
+3. **Server.** The `mcp` fixture starts the built server, `mcp-server/dist/index.js`, with the MCP SDK's client over
+   stdio, as Claude Code starts it. `mcp.call("get_tree")` opens the bridge's listener and waits for the extension;
+   every request and response goes to the test's output and to its `mcp-transcript.txt` attachment.
 4. **Observe** outside the bridge with `serviceWorker.evaluate(() => chrome.bookmarks.getTree())`.
 
-To drive something new, add a test beside `e2e/bridge.e2e.ts` that uses the same fixtures.
+To drive something new, add a test beside `e2e/tools.e2e.ts` that uses the same fixtures. A test that needs the
+extension to misbehave (another version, a disconnect) plays it with a Node `ws` client instead of the browser, as
+`e2e/tool-errors.e2e.ts` does.
 
 ## Readiness
 
 - The extension is loaded when the `serviceWorker` fixture resolves and its URL has the ID above.
-- The bridge is ready when the first `request` resolves. The extension tried to connect when it was installed, before
-  anything listened, so it connects on its next alarm: expect about 30 seconds (the run on this computer took 31).
+- The bridge is ready when the first tool call that needs Chrome returns. The extension tried to connect when it was
+  installed, before anything listened, so it connects on its next alarm: expect about 30 seconds (the run on this
+  computer took 30).
 
 ## Teardown
 
-The fixtures close the browser and delete the temporary profile, and `bridge.close()` frees the port, even when a test
-fails. Kill only processes you started, by their PID, never by name. Evidence stays: `artifacts/e2e/` holds each
-test's attachments (`get-tree.json`) and, on failure, its error context.
+The fixtures close the browser and delete the temporary profile, and close the MCP client, which ends the server and
+frees the port, even when a test fails. Kill only processes you started, by their PID, never by name. Evidence stays:
+`artifacts/e2e/` holds each test's attachments (`mcp-transcript.txt`) and, on failure, its error context.
 
 ## Gotchas
 
-- Port 47615 is fixed. If a real MCP server of this project is running, the test's bridge fails with "Another session
-  is using the bridge"; and a Chrome of yours with the extension loaded would connect to the test's bridge. Close both
-  before running.
+- Port 47615 is fixed. If a real MCP server of this project is running, the test's server fails with "Another session
+  is using the bridge"; and a Chrome of yours with the extension loaded would connect to the test's server. Close
+  both before running.
 - The special folders' titles follow the browser's language (`其他書籤` for Other bookmarks on a Chinese system); match
   them by `folderType`, never by title.
 - The headless shell (`chromium-headless-shell`) does not load extensions; the fixture asks for `channel: "chromium"`.
