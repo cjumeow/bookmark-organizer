@@ -5,9 +5,9 @@ through Chrome's own `chrome.bookmarks` API, plus a skill that holds the rules f
 The agent decides how bookmarks should be named and filed; the extension and the server carry the decision out
 exactly.
 
-Status: being built. The MCP server has the read-only tools `get_tree` and `check_plan`, and `apply_plan`, which backs
-up the tree and has the extension apply a plan; `list_backups` and `get_restore_plan` are next. What the first version
-does (the MCP tools, the plan format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the features
+Status: being built. The MCP server has all the tools of the first version: the read-only `get_tree`, `check_plan`,
+`list_backups` and `get_restore_plan`, and `apply_plan`, which backs up the tree and has the extension apply a plan.
+What the first version does (the MCP tools, the plan format, the bridge protocol and backups) is in the spec, `docs/spec.md`, and the features
 are built from it.
 
 ## A learning project

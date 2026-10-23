@@ -51,7 +51,31 @@ test("the server sends its instructions and offers apply_plan as the one tool th
     { name: "get_tree", annotations: { readOnlyHint: true } },
     { name: "check_plan", annotations: { readOnlyHint: true } },
     { name: "apply_plan", annotations: { destructiveHint: true } },
+    { name: "list_backups", annotations: { readOnlyHint: true } },
+    { name: "get_restore_plan", annotations: { readOnlyHint: true } },
   ]);
+});
+
+test("list_backups answers without Chrome and leaves the bridge's port closed", async ({ mcp }) => {
+  const result = await mcp.call("list_backups");
+
+  expect(result.isError).toBeFalsy();
+  expect(JSON.parse(textOf(result))).toEqual({ backups: [] });
+  expect(await isListening()).toBe(false);
+});
+
+test("get_restore_plan says an unknown backup does not exist, without waiting for Chrome", async ({ mcp }) => {
+  const started = Date.now();
+  const unknown = await mcp.call("get_restore_plan", { backupId: "2026-10-23T14-05-00Z" });
+  // Not a backup's name, such as a path out of the backups folder, is no backup either.
+  const outside = await mcp.call("get_restore_plan", { backupId: "../../etc/passwd" });
+
+  expect(unknown.isError).toBe(true);
+  expect(textOf(unknown)).toBe("Backup 2026-10-23T14-05-00Z does not exist.");
+  expect(outside.isError).toBe(true);
+  expect(textOf(outside)).toBe("Backup ../../etc/passwd does not exist.");
+  expect(Date.now() - started).toBeLessThan(5_000);
+  expect(await isListening()).toBe(false);
 });
 
 test("get_tree says Chrome is not reachable when no extension connects within 40 seconds", async ({ mcp }) => {

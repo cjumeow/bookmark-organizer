@@ -20,6 +20,7 @@ import { z } from "zod";
 import type { BackupFile, BackupStore } from "./backups.js";
 import { type Bridge, BridgeError } from "./bridge.js";
 import { checkPlan, type CheckResult, STALE_PLAN, WHOLE_PLAN } from "./check-plan.js";
+import { restorePlan } from "./restore-plan.js";
 
 // package.json is the one place the version is written; dist/ and src/ both sit beside it.
 export const { version } = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")) as {
@@ -118,6 +119,41 @@ export function createServer(bridge: Bridge, backups: BackupStore): McpServer {
           { cause: error },
         );
       }
+    },
+  );
+
+  server.registerTool(
+    "list_backups",
+    {
+      description:
+        "Lists the backups apply_plan took of the whole bookmark tree, newest first: each with its ID, when it was " +
+        "taken, how many bookmarks and folders it holds, and how many operations the plan applied after it had. " +
+        "Changes nothing.",
+      inputSchema: {},
+      annotations: { readOnlyHint: true },
+    },
+    // The backups are files the server writes, so this needs no Chrome and does not open the bridge.
+    async () => json({ backups: await backups.list() }),
+  );
+
+  server.registerTool(
+    "get_restore_plan",
+    {
+      description:
+        "Computes the plan that brings the bookmark tree back to a backup, with the current tree's revision, and " +
+        "the nodes it cannot restore in skipped, each with why. Nodes that were removed are created again, with new " +
+        "IDs; bookmarks added since stay, after the restored nodes. Changes nothing: check the plan with check_plan, " +
+        "show the person its changes and what is skipped, and apply it with apply_plan, which backs up the tree " +
+        "first, so a restore can itself be restored.",
+      inputSchema: { backupId: z.string().describe("A backup's ID, from list_backups or apply_plan") },
+      annotations: { readOnlyHint: true },
+    },
+    async ({ backupId }) => {
+      // Read first, so an unknown backup is reported without waiting for Chrome.
+      const backup = await backups.read(backupId);
+      const tree = await readTree();
+      const { operations, skipped } = restorePlan(backup.tree, tree);
+      return json({ plan: { revision: await revisionOf(tree), operations }, skipped });
     },
   );
 
