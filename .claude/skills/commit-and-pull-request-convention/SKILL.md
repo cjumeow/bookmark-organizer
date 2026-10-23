@@ -9,8 +9,8 @@ A pull request is squash-merged: one change becomes one commit on `main`. Its su
 its body is the messages of the pull request's commits. Write both for someone who never saw the conversation: the
 chat with the agent is gone after the session, and the history on `main` is what stays.
 
-The rules a program can check (the title format, the changelog entry) belong in a CI workflow. Until that workflow
-exists, check them yourself before pushing.
+The `check-pull-request-conventions` workflow checks what a program can: the title's format and length, and the
+changelog entry of a `feat` or `fix`. The rest is for you and the reviewer.
 
 ## Branches
 

@@ -1,0 +1,43 @@
+# What .claude/skills/commit-and-pull-request-convention/SKILL.md asks of a pull request that a program can check: the
+# title, which becomes the commit on main, and a CHANGELOG.md entry for a feat or a fix.
+name: check-pull-request-conventions
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  check-pull-request-conventions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # The title comes in through env, never ${{ }} inside the script: a title is text anyone opening a pull request
+      # writes, and expanding it into the script would run it as shell code.
+      - name: Check the title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if ! printf '%s' "$TITLE" | grep -Eq '^(feat|fix|refactor|docs|test|ci|chore): [a-z0-9`].*[^.]$'; then
+            echo "::error::The title must be '<type>: <sentence>': type feat, fix, refactor, docs, test, ci or chore;" \
+              "the sentence starts lowercase and has no trailing period."
+            exit 1
+          fi
+          if [ "${#TITLE}" -gt 72 ]; then
+            echo "::error::The title is ${#TITLE} characters; keep it within 72, where GitHub starts cutting titles."
+            exit 1
+          fi
+      - name: Check the changelog entry of a feat or fix
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          case "$TITLE" in
+            feat:*|fix:*) node scripts/check-changelog-entry.mjs "$BASE_SHA" "$HEAD_SHA" ;;
+            *) echo "A ${TITLE%%:*} pull request needs no changelog entry." ;;
+          esac
