@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: restore-after-a-reorganization
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  The agent lists the backups, gets the restore plan of the newest backup (2026-10-22T09-12-00Z), checks it with
+  check_plan and shows the person what it would change, including that "Trip planner" cannot be restored because it is
+  now in account storage, and asks before applying.

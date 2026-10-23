@@ -15,7 +15,7 @@ export default defineConfig(
     },
   },
   {
-    files: ["mcp-server/**", "scripts/**", "*.js"],
+    files: ["mcp-server/**", "scripts/**", "skills/*/evals/**", "*.js"],
     languageOptions: { globals: globals.node },
   },
   {

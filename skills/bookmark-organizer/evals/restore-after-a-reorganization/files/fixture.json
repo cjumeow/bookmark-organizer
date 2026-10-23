@@ -1,0 +1,102 @@
+{
+  "tree": [
+    {
+      "id": "1",
+      "title": "Bookmarks bar",
+      "folderType": "bookmarks-bar",
+      "syncing": false,
+      "children": [
+        {
+          "id": "60",
+          "title": "Development",
+          "children": [
+            { "id": "26", "title": "Quillstack: API reference", "url": "https://docs.example.com/api/" },
+            { "id": "30", "title": "Runbox: run code in the browser", "url": "https://playground.example.com/" },
+            { "id": "28", "title": "Learnhub: SQL course", "url": "https://learn.example.com/sql" }
+          ]
+        },
+        {
+          "id": "61",
+          "title": "Cooking",
+          "children": [
+            { "id": "21", "title": "Panfresh: weeknight recipes", "url": "https://recipes.example.com/" },
+            { "id": "37", "title": "Panfresh: red lentil soup", "url": "https://recipes.example.com/soup/lentil" },
+            { "id": "38", "title": "Crumb: sourdough starter guide", "url": "https://bread.example.com/sourdough" }
+          ]
+        },
+        {
+          "id": "62",
+          "title": "Assorted",
+          "children": [
+            { "id": "31", "title": "Skycast: hourly forecast", "url": "https://weather.example.com/" },
+            { "id": "36", "title": "Trailmap: Alpine hiking routes", "url": "https://trails.example.com/alps" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": false,
+      "children": [{ "id": "70", "title": "Fitloop: class timetable", "url": "https://gym.example.com/timetable" }]
+    },
+    { "id": "3", "title": "Mobile bookmarks", "folderType": "mobile", "syncing": false, "children": [] },
+    { "id": "4", "title": "Bookmarks bar", "folderType": "bookmarks-bar", "syncing": true, "children": [] },
+    {
+      "id": "5",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": true,
+      "children": [{ "id": "57", "title": "Trip planner", "url": "https://trips.example.com/" }]
+    }
+  ],
+  "backups": [
+    {
+      "id": "2026-10-22T09-12-00Z",
+      "createdAt": "2026-10-22T09:12:00Z",
+      "bookmarks": 9,
+      "folders": 1,
+      "operations": 24,
+      "restore": {
+        "operations": [
+          { "op": "create", "key": "$restore-10", "parent": "1", "title": "stuff", "index": 0 },
+          { "op": "move", "node": "21", "parent": "1", "index": 0 },
+          { "op": "rename", "node": "21", "title": "Recipes" },
+          { "op": "move", "node": "26", "parent": "$restore-10" },
+          { "op": "rename", "node": "26", "title": "Docs" },
+          { "op": "move", "node": "30", "parent": "$restore-10" },
+          { "op": "rename", "node": "30", "title": "playground" },
+          { "op": "move", "node": "28", "parent": "2", "index": 0 },
+          { "op": "rename", "node": "28", "title": "learn" },
+          { "op": "move", "node": "31", "parent": "2", "index": 1 },
+          { "op": "rename", "node": "31", "title": "Weather" },
+          { "op": "move", "node": "36", "parent": "2", "index": 2 },
+          { "op": "rename", "node": "36", "title": "Hiking" },
+          { "op": "move", "node": "37", "parent": "2", "index": 3 },
+          { "op": "rename", "node": "37", "title": "Recipe" },
+          { "op": "move", "node": "38", "parent": "2", "index": 4 },
+          { "op": "rename", "node": "38", "title": "https://bread.example.com/sourdough" },
+          { "op": "remove", "node": "60" },
+          { "op": "remove", "node": "61" },
+          { "op": "remove", "node": "62" }
+        ],
+        "skipped": [
+          {
+            "id": "57",
+            "title": "Trip planner",
+            "reason": "It is now in account storage, and a plan may not move it back to local storage."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2026-09-30T18-40-00Z",
+      "createdAt": "2026-09-30T18:40:00Z",
+      "bookmarks": 9,
+      "folders": 1,
+      "operations": 3
+    }
+  ],
+  "sites": {}
+}

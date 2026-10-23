@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: tidy-one-folder-of-a-large-tree
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  get_tree returns an outline, so the agent reads the Read later folder with get_tree and its folderId, and writes a
+  valid plan, checked and shown to the person, that changes only that folder and what is inside it. Bookmarks it could
+  read are named "Name: short description"; the bookmark whose site is gone is reported, not guessed.

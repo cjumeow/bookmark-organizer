@@ -1,0 +1,135 @@
+{
+  "outline": true,
+  "tree": [
+    {
+      "id": "1",
+      "title": "Bookmarks bar",
+      "folderType": "bookmarks-bar",
+      "syncing": false,
+      "children": [
+        {
+          "id": "10",
+          "title": "Work",
+          "children": [
+            { "id": "100", "title": "Team wiki", "url": "https://wiki.example.com/" },
+            { "id": "101", "title": "On-call rota", "url": "https://rota.example.com/" },
+            { "id": "102", "title": "x", "url": "https://dash.example.com/q3" }
+          ]
+        },
+        {
+          "id": "11",
+          "title": "Read later",
+          "children": [
+            {
+              "id": "110",
+              "title": "https://blog.example.com/posts/caching-at-scale",
+              "url": "https://blog.example.com/posts/caching-at-scale"
+            },
+            { "id": "111", "title": "article", "url": "https://journal.example.com/2026/queues" },
+            { "id": "112", "title": "Interesting", "url": "https://essays.example.com/on-naming" },
+            {
+              "id": "113",
+              "title": "https://video.example.com/watch?v=k3",
+              "url": "https://video.example.com/watch?v=k3"
+            },
+            { "id": "114", "title": "talk", "url": "https://video.example.com/watch?v=p9" },
+            { "id": "115", "title": "Video", "url": "https://video.example.com/watch?v=t2" },
+            {
+              "id": "116",
+              "title": "https://cook.example.com/knife-skills",
+              "url": "https://cook.example.com/knife-skills"
+            },
+            { "id": "117", "title": "read this", "url": "https://essays.example.com/slow-software" },
+            { "id": "118", "title": "paper", "url": "https://papers.example.com/raft" },
+            { "id": "119", "title": "https://papers.example.com/dynamo", "url": "https://papers.example.com/dynamo" },
+            { "id": "120", "title": "old link", "url": "https://gone.example.com/post/42" },
+            { "id": "121", "title": "garden", "url": "https://garden.example.com/tomatoes" }
+          ]
+        },
+        {
+          "id": "12",
+          "title": "Old",
+          "children": [
+            {
+              "id": "13",
+              "title": "2019",
+              "children": [
+                { "id": "130", "title": "conf", "url": "https://conf.example.com/2019" },
+                { "id": "131", "title": "hotel", "url": "https://hotel.example.com/booking" }
+              ]
+            },
+            { "id": "132", "title": "tickets", "url": "https://tickets.example.com/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": false,
+      "children": [
+        { "id": "200", "title": "Bank", "url": "https://bank.example.com/" },
+        { "id": "201", "title": "Mail", "url": "https://mail.example.com/" }
+      ]
+    },
+    { "id": "3", "title": "Mobile bookmarks", "folderType": "mobile", "syncing": false, "children": [] }
+  ],
+  "sites": {
+    "https://blog.example.com/posts/caching-at-scale": {
+      "title": "Caching at scale - Northwind Engineering",
+      "description": "How we cache 2 million requests a second.",
+      "text": "Northwind Engineering blog. Caching at scale."
+    },
+    "https://journal.example.com/2026/queues": {
+      "title": "Queues don't fix overload",
+      "description": "Why adding a queue rarely fixes an overloaded system.",
+      "text": "Systems Journal. Queues don't fix overload."
+    },
+    "https://essays.example.com/on-naming": {
+      "title": "On naming things",
+      "description": "An essay about naming in code.",
+      "text": "Fieldnotes essays. On naming things."
+    },
+    "https://video.example.com/watch?v=k3": {
+      "title": "Designing data pipelines (talk) - Vidhub",
+      "description": "A 40-minute conference talk.",
+      "text": "Vidhub. Designing data pipelines, DataConf 2026."
+    },
+    "https://video.example.com/watch?v=p9": {
+      "title": "The art of code review (talk) - Vidhub",
+      "description": "A 30-minute talk.",
+      "text": "Vidhub. The art of code review, DevDays."
+    },
+    "https://video.example.com/watch?v=t2": {
+      "title": "Sourdough shaping, step by step - Vidhub",
+      "description": "Baking video.",
+      "text": "Vidhub. How to shape a sourdough loaf."
+    },
+    "https://cook.example.com/knife-skills": {
+      "title": "Knife skills for home cooks",
+      "description": "Basic knife cuts.",
+      "text": "Kitchenwise. Six knife cuts every cook should know."
+    },
+    "https://essays.example.com/slow-software": {
+      "title": "Slow software",
+      "description": "Why everyday software feels slow.",
+      "text": "Fieldnotes essays. Slow software."
+    },
+    "https://papers.example.com/raft": {
+      "title": "In search of an understandable consensus algorithm",
+      "description": "The Raft paper.",
+      "text": "Paperhub. The Raft consensus algorithm, PDF."
+    },
+    "https://papers.example.com/dynamo": {
+      "title": "Dynamo: a highly available key-value store",
+      "description": "The Dynamo paper.",
+      "text": "Paperhub. Dynamo, PDF."
+    },
+    "https://garden.example.com/tomatoes": {
+      "title": "Growing tomatoes in pots",
+      "description": "A guide for balconies.",
+      "text": "Plotwise. Growing tomatoes in containers."
+    }
+  }
+}

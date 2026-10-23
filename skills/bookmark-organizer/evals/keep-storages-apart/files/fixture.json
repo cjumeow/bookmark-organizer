@@ -1,0 +1,127 @@
+{
+  "tree": [
+    { "id": "1", "title": "Bookmarks bar", "folderType": "bookmarks-bar", "syncing": true, "children": [] },
+    {
+      "id": "2",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": true,
+      "children": [
+        { "id": "20", "title": "git cheatsheet", "url": "https://git.example.com/cheatsheet" },
+        { "id": "21", "title": "https://types.example.com/handbook", "url": "https://types.example.com/handbook" },
+        { "id": "22", "title": "Linter", "url": "https://lint.example.com/rules" },
+        { "id": "23", "title": "ci docs", "url": "https://ci.example.com/docs" },
+        { "id": "24", "title": "soup", "url": "https://recipes.example.com/soup/miso" },
+        { "id": "25", "title": "Curry", "url": "https://recipes.example.com/curry/green" },
+        { "id": "26", "title": "Noodles", "url": "https://recipes.example.com/noodles/udon" },
+        { "id": "27", "title": "budget", "url": "https://budget.example.com/" }
+      ]
+    },
+    { "id": "3", "title": "Mobile bookmarks", "folderType": "mobile", "syncing": true, "children": [] },
+    {
+      "id": "4",
+      "title": "Bookmarks bar",
+      "folderType": "bookmarks-bar",
+      "syncing": false,
+      "children": [
+        {
+          "id": "10",
+          "title": "dev",
+          "children": [
+            { "id": "30", "title": "Regex tester", "url": "https://regex.example.com/" },
+            {
+              "id": "31",
+              "title": "https://http.example.com/status-codes",
+              "url": "https://http.example.com/status-codes"
+            },
+            { "id": "32", "title": "Linter rules", "url": "https://lint.example.com/rules" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": false,
+      "children": [
+        { "id": "33", "title": "json", "url": "https://json.example.com/format" },
+        { "id": "34", "title": "Shell explained", "url": "https://shell.example.com/explain" },
+        { "id": "35", "title": "bread", "url": "https://bread.example.com/focaccia" },
+        { "id": "36", "title": "Gym", "url": "https://gym.example.com/timetable" }
+      ]
+    }
+  ],
+  "sites": {
+    "https://git.example.com/cheatsheet": {
+      "title": "Git cheat sheet",
+      "description": "The Git commands you use every day.",
+      "text": "Gitbook. One-page Git cheat sheet."
+    },
+    "https://types.example.com/handbook": {
+      "title": "Typewise Handbook",
+      "description": "The handbook of the Typewise language.",
+      "text": "Typewise handbook: types, generics, modules."
+    },
+    "https://lint.example.com/rules": {
+      "title": "Lintly rules",
+      "description": "Every rule of the Lintly linter.",
+      "text": "Lintly. Rule reference, with examples."
+    },
+    "https://ci.example.com/docs": {
+      "title": "Pipewise docs",
+      "description": "Documentation for the Pipewise CI service.",
+      "text": "Pipewise CI. Workflows, runners, caching."
+    },
+    "https://recipes.example.com/soup/miso": {
+      "title": "Miso soup | Panfresh",
+      "description": "Miso soup in 10 minutes.",
+      "text": "Panfresh. Miso soup with tofu and wakame."
+    },
+    "https://recipes.example.com/curry/green": {
+      "title": "Green curry | Panfresh",
+      "description": "Thai green curry.",
+      "text": "Panfresh. Green curry with chicken."
+    },
+    "https://recipes.example.com/noodles/udon": {
+      "title": "Udon | Panfresh",
+      "description": "Hot udon noodle soup.",
+      "text": "Panfresh. Udon in dashi broth."
+    },
+    "https://budget.example.com/": {
+      "title": "Coinjar",
+      "description": "Track spending and set budgets.",
+      "text": "Coinjar. Personal budgeting app."
+    },
+    "https://regex.example.com/": {
+      "title": "Regexly - test regular expressions",
+      "description": "Test and debug regular expressions.",
+      "text": "Regexly. Live regex tester."
+    },
+    "https://http.example.com/status-codes": {
+      "title": "HTTP status codes",
+      "description": "Every HTTP status code explained.",
+      "text": "Statusref. All HTTP status codes, from 100 to 599."
+    },
+    "https://json.example.com/format": {
+      "title": "JSON Formatter",
+      "description": "Format and validate JSON.",
+      "text": "Jsonly. Paste JSON to format and validate it."
+    },
+    "https://shell.example.com/explain": {
+      "title": "Shell Explained",
+      "description": "Explains any shell command, part by part.",
+      "text": "Explainshell. Paste a command to see what each part does."
+    },
+    "https://bread.example.com/focaccia": {
+      "title": "Crumb: Focaccia",
+      "description": "Overnight focaccia.",
+      "text": "Crumb. Focaccia with rosemary."
+    },
+    "https://gym.example.com/timetable": {
+      "title": "Fitloop timetable",
+      "description": "Class timetable for Fitloop gyms.",
+      "text": "Fitloop. This week's classes."
+    }
+  }
+}

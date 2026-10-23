@@ -1,0 +1,162 @@
+{
+  "tree": [
+    {
+      "id": "1",
+      "title": "Bookmarks bar",
+      "folderType": "bookmarks-bar",
+      "syncing": false,
+      "children": [
+        { "id": "20", "title": "tasks.example.com/board", "url": "https://tasks.example.com/board" },
+        { "id": "21", "title": "Recipes", "url": "https://recipes.example.com/" },
+        {
+          "id": "10",
+          "title": "stuff",
+          "children": [
+            { "id": "22", "title": "Untitled", "url": "https://example.com/fonts/" },
+            { "id": "23", "title": "colors", "url": "https://palette.example.com/" },
+            {
+              "id": "24",
+              "title": "https://icons.example.com/set/outline",
+              "url": "https://icons.example.com/set/outline"
+            },
+            { "id": "25", "title": "Portal", "url": "https://portal.example.com/" }
+          ]
+        },
+        {
+          "id": "11",
+          "title": "New folder",
+          "children": [
+            { "id": "26", "title": "Docs", "url": "https://docs.example.com/api/" },
+            { "id": "27", "title": "Quillstack API", "url": "https://docs.example.com/api" },
+            { "id": "28", "title": "learn", "url": "https://learn.example.com/sql" },
+            { "id": "29", "title": "https://learn.example.com/regex", "url": "https://learn.example.com/regex" },
+            { "id": "30", "title": "playground", "url": "https://playground.example.com/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Other bookmarks",
+      "folderType": "other",
+      "syncing": false,
+      "children": [
+        { "id": "31", "title": "Weather", "url": "https://weather.example.com/" },
+        { "id": "32", "title": "https://news.example.com/tech", "url": "https://news.example.com/tech" },
+        { "id": "33", "title": "Daily Brief", "url": "https://brief.example.com/" },
+        { "id": "34", "title": "https://check.example.com/x7", "url": "https://check.example.com/x7" },
+        { "id": "35", "title": "Tasklane", "url": "https://tasks.example.com/board" },
+        { "id": "36", "title": "Hiking", "url": "https://trails.example.com/alps" },
+        { "id": "37", "title": "Recipe", "url": "https://recipes.example.com/soup/lentil" },
+        { "id": "38", "title": "https://bread.example.com/sourdough", "url": "https://bread.example.com/sourdough" },
+        { "id": "39", "title": "Photos", "url": "https://photos.example.com/" },
+        { "id": "40", "title": "Unsubscribe", "url": "https://mail.example.com/unsubscribe?list=weekly&token=a81f3c" },
+        { "id": "41", "title": "Data Sketch", "url": "https://sketch.example.com/" },
+        { "id": "42", "title": "Charts", "url": "https://charts.example.com/gallery" }
+      ]
+    },
+    { "id": "3", "title": "Mobile bookmarks", "folderType": "mobile", "syncing": false, "children": [] }
+  ],
+  "sites": {
+    "https://tasks.example.com/board": {
+      "title": "Tasklane - Kanban boards for small teams",
+      "description": "Plan work on shared Kanban boards.",
+      "text": "Tasklane. Boards, cards and due dates for teams of up to 20."
+    },
+    "https://recipes.example.com/": {
+      "title": "Panfresh | Weeknight recipes",
+      "description": "Dinner recipes that take 30 minutes or less.",
+      "text": "Panfresh. Quick weeknight dinners, sorted by ingredient."
+    },
+    "https://example.com/fonts/": {
+      "title": "Glyphhouse",
+      "description": "Free open-source fonts for the web.",
+      "text": "Glyphhouse. Browse and download 1,200 open-source font families."
+    },
+    "https://palette.example.com/": {
+      "title": "Hueforge - color palette generator",
+      "description": "Generate matching color palettes.",
+      "text": "Hueforge. Press space to generate a palette; export as CSS."
+    },
+    "https://icons.example.com/set/outline": {
+      "title": "Iconyard: Outline set",
+      "description": "800 outline icons, SVG.",
+      "text": "Iconyard outline icon set. Free SVG icons for interfaces."
+    },
+    "https://portal.example.com/": { "title": "Sign in", "text": "Sign in to continue.\nEmail\nPassword\n[Sign in]" },
+    "https://docs.example.com/api/": {
+      "title": "API Reference - Quillstack",
+      "description": "Reference for the Quillstack REST API.",
+      "text": "Quillstack API reference. Endpoints, authentication, rate limits."
+    },
+    "https://learn.example.com/sql": {
+      "title": "SQL from Scratch",
+      "description": "An interactive SQL course for beginners.",
+      "text": "Learnhub. SQL from scratch: 40 interactive lessons."
+    },
+    "https://learn.example.com/regex": {
+      "title": "Regex Drills",
+      "description": "Practice regular expressions with short exercises.",
+      "text": "Learnhub. Regex drills: 120 exercises with instant feedback."
+    },
+    "https://playground.example.com/": {
+      "title": "Runbox",
+      "description": "Run code snippets in your browser.",
+      "text": "Runbox. Write and run JavaScript, Python and Go in the browser."
+    },
+    "https://weather.example.com/": {
+      "title": "Skycast",
+      "description": "Hourly local weather forecast.",
+      "text": "Skycast. Hourly forecast, radar and alerts for your location."
+    },
+    "https://news.example.com/tech": {
+      "title": "Byteline - Tech",
+      "description": "Technology news.",
+      "text": "Byteline. Technology news, updated hourly."
+    },
+    "https://brief.example.com/": {
+      "title": "Daily Brief",
+      "description": "A five-minute morning news summary.",
+      "text": "Daily Brief. The day's news in five minutes, every morning."
+    },
+    "https://check.example.com/x7": {
+      "status": 403,
+      "title": "Just a moment...",
+      "text": "Verify you are human.\nComplete the CAPTCHA below to continue.\n[ ] I'm not a robot"
+    },
+    "https://trails.example.com/alps": {
+      "title": "Trailmap - Alps",
+      "description": "Hiking routes in the Alps.",
+      "text": "Trailmap. 300 hiking routes in the Alps with elevation profiles."
+    },
+    "https://recipes.example.com/soup/lentil": {
+      "title": "Red lentil soup | Panfresh",
+      "description": "A 25-minute red lentil soup.",
+      "text": "Panfresh. Red lentil soup with cumin and lemon."
+    },
+    "https://bread.example.com/sourdough": {
+      "title": "Crumb: Sourdough starter guide",
+      "description": "Make and keep a sourdough starter.",
+      "text": "Crumb. How to make a sourdough starter in seven days."
+    },
+    "https://photos.example.com/": {
+      "title": "Shutterbox",
+      "description": "Store and share your photos.",
+      "text": "Shutterbox. Back up your photos and share albums."
+    },
+    "https://mail.example.com/unsubscribe?list=weekly&token=a81f3c": {
+      "title": "Unsubscribed",
+      "text": "You have been unsubscribed from Weekly Digest. You will no longer receive these emails."
+    },
+    "https://sketch.example.com/": {
+      "title": "Data Sketch",
+      "description": "Draw charts from a spreadsheet.",
+      "text": "Data Sketch. Paste a table and get a chart."
+    },
+    "https://charts.example.com/gallery": {
+      "title": "Chartbook gallery",
+      "description": "Examples of good charts.",
+      "text": "Chartbook. A gallery of 500 well-made charts, by type."
+    }
+  }
+}
