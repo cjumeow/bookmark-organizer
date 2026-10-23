@@ -1,5 +1,9 @@
 # macOS folder metadata
 .DS_Store
 
+# Installed dependencies and build output
+node_modules/
+dist/
+
 # Verification evidence (screenshots, tree dumps), kept locally: see .claude/skills/verify
 artifacts/

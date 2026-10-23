@@ -1,0 +1,14 @@
+{
+  "name": "@bookmark-organizer/extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension that applies bookmark changes for the bookmark-organizer MCP server.",
+  "type": "module",
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.json && node -e \"require('node:fs').cpSync('manifest.json', 'dist/manifest.json')\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.3.6"
+  }
+}
