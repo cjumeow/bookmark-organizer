@@ -22,5 +22,7 @@ await build({
   format: "esm",
   target: "node24",
   sourcemap: true,
+  // The bin of the npm package: `npx bookmark-organizer-mcp` runs this file directly.
+  banner: { js: "#!/usr/bin/env node" },
   external: Object.keys(dependencies).filter((name) => !name.startsWith("@bookmark-organizer/")),
 });

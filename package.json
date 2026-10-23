@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Organize Chrome bookmarks with a coding agent: a Chrome extension and a local MCP server.",
+  "license": "MIT",
   "type": "module",
   "engines": {
     "node": ">=24"

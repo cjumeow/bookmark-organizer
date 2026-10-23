@@ -1,0 +1,65 @@
+# Publishes a release when the developer pushes a version tag such as v0.1.0, after the release pull request that
+# set that version has merged: the MCP server to npm, and a GitHub Release with the extension and the organizer skill
+# as zips and the version's CHANGELOG.md section as notes. How to cut a release is in AGENTS.md ("Releasing").
+name: publish-release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write # create the GitHub Release
+  id-token: write # npm trusted publishing: npm trusts this workflow through OIDC, so no npm token is stored
+
+# Two tags pushed at once publish one after the other, never in parallel.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      # The tag names the version; the five version files must already say it, or the release stops here.
+      - name: Check the tag matches the version
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Tag $TAG does not match version $version in package.json."
+            exit 1
+          fi
+          npm run check:versions
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Write the release notes
+        run: node scripts/release-notes.mjs "$VERSION" > "$RUNNER_TEMP/notes.md"
+      # Everything check-code runs on a pull request, again on the tagged commit, before anything is published.
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Zip the extension and the organizer skill
+        run: |
+          (cd extension/dist && zip -r "$RUNNER_TEMP/bookmark-organizer-extension-$VERSION.zip" .)
+          (cd skills && zip -r "$RUNNER_TEMP/bookmark-organizer-skill-$VERSION.zip" bookmark-organizer -x 'bookmark-organizer/evals/*')
+      - name: Publish the MCP server to npm
+        run: npm publish --workspace mcp-server --access public
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" --title "Bookmark Organizer $VERSION" --notes-file "$RUNNER_TEMP/notes.md" \
+            "$RUNNER_TEMP/bookmark-organizer-extension-$VERSION.zip" \
+            "$RUNNER_TEMP/bookmark-organizer-skill-$VERSION.zip"
