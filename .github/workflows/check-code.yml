@@ -31,3 +31,6 @@ jobs:
       - run: npm test
       - run: npm run check:versions
       - run: npm run build
+      # The end-to-end tests load the built extension in Playwright's own Chromium, so they run after the build.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
