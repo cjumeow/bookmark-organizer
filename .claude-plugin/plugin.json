@@ -1,0 +1,17 @@
+{
+  "name": "bookmark-organizer",
+  "displayName": "Bookmark Organizer",
+  "version": "0.1.1",
+  "description": "Rename and file your Chrome bookmarks: the organizer skill and the MCP server, at one version. The Chrome extension is installed separately, from the GitHub Release of the same version.",
+  "author": { "name": "GuanJun Liu", "url": "https://github.com/cjumeow" },
+  "homepage": "https://github.com/cjumeow/bookmark-organizer#readme",
+  "repository": "https://github.com/cjumeow/bookmark-organizer",
+  "license": "MIT",
+  "keywords": ["bookmarks", "chrome", "mcp"],
+  "mcpServers": {
+    "bookmark-organizer": {
+      "command": "npx",
+      "args": ["-y", "bookmark-organizer-mcp@0.1.1"]
+    }
+  }
+}

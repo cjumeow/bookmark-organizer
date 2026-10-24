@@ -26,7 +26,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
           registry-url: https://registry.npmjs.org
-      # The tag names the version; the five version files must already say it, or the release stops here.
+      # The tag names the version; every version file and the plugin's server pin must say it, or the release stops.
       - name: Check the tag matches the version
         env:
           TAG: ${{ github.ref_name }}
