@@ -5,6 +5,8 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-24
+
 ### Added
 
 - The MCP tools `list_backups`, which lists the backups `apply_plan` took, and `get_restore_plan`, which turns one

@@ -20,39 +20,34 @@ Agent ──MCP──▶ MCP server ──WebSocket on 127.0.0.1──▶ Chrome
   restore any backup.
 - **Bookmarks stay on your computer.** The server listens only on `127.0.0.1` and accepts only this extension.
 
-## Install from source
+## Install
 
 You need Node.js 24, Chrome 134 or later, and a coding agent that speaks MCP. The steps below use
-[Claude Code](https://claude.com/claude-code), the only agent it has been tested with so far.
+[Claude Code](https://claude.com/claude-code), the only agent it has been tested with so far. Install the server, the
+extension and the skill at the same version: the server accepts only an extension of its own version.
 
-1. Build it, in a clone you keep for using it rather than developing it:
-
-   ```bash
-   git clone https://github.com/cjumeow/bookmark-organizer.git ~/bookmark-organizer-app
-   cd ~/bookmark-organizer-app && npm ci && npm run build
-   ```
-
-2. Load the extension: open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select
-   `~/bookmark-organizer-app/extension/dist`. Its ID is `ancijliidboahicggjggbhlflehlnbjg`.
-3. Register the MCP server with your agent. It is a stdio server: the agent starts it with
-   `node ~/bookmark-organizer-app/mcp-server/dist/index.js` and talks to it over stdin and stdout. In Claude Code:
+1. From the [latest Release](https://github.com/cjumeow/bookmark-organizer/releases/latest), download
+   `bookmark-organizer-extension-0.1.0.zip` and `bookmark-organizer-skill-0.1.0.zip`, and unzip both into a folder you
+   keep, for example `~/bookmark-organizer/`.
+2. Load the extension: open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the
+   unzipped extension folder. Its ID is `ancijliidboahicggjggbhlflehlnbjg`.
+3. Register the MCP server with your agent. It is a stdio server from npm: the agent starts it with
+   `npx -y bookmark-organizer-mcp@0.1.0` and talks to it over stdin and stdout. In Claude Code:
 
    ```bash
-   claude mcp add bookmark-organizer -s user -- node ~/bookmark-organizer-app/mcp-server/dist/index.js
+   claude mcp add bookmark-organizer -s user -- npx -y bookmark-organizer-mcp@0.1.0
    ```
 
-   Other agents, such as Cursor (`~/.cursor/mcp.json`) or Codex (`~/.codex/config.toml`), take the same command and
-   argument in their own MCP configuration; write the path out in full there, since `~` is not expanded.
+   Other agents, such as Cursor (`~/.cursor/mcp.json`) or Codex (`~/.codex/config.toml`), take the same command
+   (`npx`) and arguments in their own MCP configuration.
 
-4. Give your agent the organizer skill, which holds the rules for naming and filing. In Claude Code:
-
-   ```bash
-   ln -s ~/bookmark-organizer-app/skills/bookmark-organizer ~/.claude/skills/bookmark-organizer
-   ```
-
-   An agent without the skill can still use the tools, but does not know the naming rules.
-
+4. Give your agent the organizer skill, which holds the rules for naming and filing. In Claude Code, put the unzipped
+   `bookmark-organizer` skill folder in `~/.claude/skills/`. An agent without the skill can still use the tools, but
+   does not know the naming rules.
 5. Start a new session of your agent, so it loads the server.
+
+To upgrade, repeat the steps with the new version: replace the extension and the skill, and register the server again
+with the new version number.
 
 ## Use it
 
@@ -81,8 +76,10 @@ The first request after the server starts can take up to 30 seconds while the ex
 
 ## Develop
 
-Start with [`AGENTS.md`](AGENTS.md). What the tools, the plan and the bridge do is in [`docs/spec.md`](docs/spec.md),
-the terms in [`GLOSSARY.md`](GLOSSARY.md), and the decisions in [`docs/adr/`](docs/adr/).
+To build it yourself: `npm ci && npm run build`, then load `extension/dist` and point your agent at
+`node mcp-server/dist/index.js`. Start with [`AGENTS.md`](AGENTS.md). What the tools, the plan and the bridge do is
+in [`docs/spec.md`](docs/spec.md), the terms in [`GLOSSARY.md`](GLOSSARY.md), and the decisions in
+[`docs/adr/`](docs/adr/).
 
 ## License
 
