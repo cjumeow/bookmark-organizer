@@ -6,7 +6,7 @@
 // A package in `dependencies` stays outside the bundle and is loaded from node_modules when the server runs; everything
 // else is bundled in, and so is this repository's own code (@bookmark-organizer/*) wherever it is listed.
 
-import { readFileSync, rmSync } from "node:fs";
+import { chmodSync, readFileSync, rmSync } from "node:fs";
 
 import { build } from "esbuild";
 
@@ -26,3 +26,7 @@ await build({
   banner: { js: "#!/usr/bin/env node" },
   external: Object.keys(dependencies).filter((name) => !name.startsWith("@bookmark-organizer/")),
 });
+
+// npm makes a bin executable when it installs the package, but not in this repository, where npx and the
+// workspace link run dist/index.js directly.
+chmodSync(new URL("dist/index.js", import.meta.url), 0o755);

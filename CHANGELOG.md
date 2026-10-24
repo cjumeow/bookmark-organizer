@@ -5,6 +5,11 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ## [Unreleased]
 
+### Fixed
+
+- The npm page of `bookmark-organizer-mcp` shows the README, with links that work there.
+- `npx bookmark-organizer-mcp` no longer fails with "Permission denied" when run inside a clone of this repository.
+
 ## [0.1.0] - 2026-10-24
 
 ### Added
