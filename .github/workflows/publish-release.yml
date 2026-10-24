@@ -53,13 +53,24 @@ jobs:
         run: |
           (cd extension/dist && zip -r "$RUNNER_TEMP/bookmark-organizer-extension-$VERSION.zip" .)
           (cd skills && zip -r "$RUNNER_TEMP/bookmark-organizer-skill-$VERSION.zip" bookmark-organizer -x 'bookmark-organizer/evals/*')
+      # Both publishing steps skip what already exists, so a run can be repeated after a failure, and a version the
+      # developer published by hand (the first one, before trusted publishing can be set up) still gets its Release.
       - name: Publish the MCP server to npm
-        run: npm publish --workspace mcp-server --access public
+        run: |
+          if npm view "bookmark-organizer-mcp@$VERSION" version > /dev/null 2>&1; then
+            echo "bookmark-organizer-mcp@$VERSION is already on npm, so it is not published again."
+          else
+            npm publish --workspace mcp-server --access public
+          fi
       - name: Create the GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$TAG" --title "Bookmark Organizer $VERSION" --notes-file "$RUNNER_TEMP/notes.md" \
-            "$RUNNER_TEMP/bookmark-organizer-extension-$VERSION.zip" \
-            "$RUNNER_TEMP/bookmark-organizer-skill-$VERSION.zip"
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "The Release $TAG already exists, so it is not created again."
+          else
+            gh release create "$TAG" --title "Bookmark Organizer $VERSION" --notes-file "$RUNNER_TEMP/notes.md" \
+              "$RUNNER_TEMP/bookmark-organizer-extension-$VERSION.zip" \
+              "$RUNNER_TEMP/bookmark-organizer-skill-$VERSION.zip"
+          fi
