@@ -54,7 +54,8 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | The MCP server and its tools, starting from `src/index.ts` | `mcp-server/` |
 | Code both programs use: the spec's types as zod schemas, and the conversion of Chrome's tree into the agent's tree, its revision and outline; exported from `src/index.ts` (see Shared code below) | `shared/` |
 | Shared TypeScript settings, lint and format rules | `tsconfig.base.json`, `eslint.config.js`, `.prettierrc.json` |
-| Repository checks that are not lint rules, with their tests | `scripts/` |
+| Repository checks that are not lint rules, and the scripts hooks run, with their tests | `scripts/` |
+| Claude Code hooks for every agent in this repository: Prettier formats each file an agent writes or edits | `.claude/settings.json` |
 | End-to-end tests: Playwright, the built extension, and the built MCP server driven by the MCP SDK's client, with a Node WebSocket that plays the extension in `e2e/fake-extension.ts` | `e2e/` |
 | The skill that organizes bookmarks, for users, and its evaluations | `skills/bookmark-organizer/`, `skills/bookmark-organizer/evals/` |
 | Skills for developing this repository | `.claude/skills/<name>/SKILL.md` (other agents read them through the `.agents/skills` link) |

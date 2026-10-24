@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/scripts/format-edited-file.mjs",
+            "timeout": 30,
+            "statusMessage": "Formatting the edited file"
+          }
+        ]
+      }
+    ]
+  }
+}
