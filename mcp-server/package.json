@@ -1,6 +1,6 @@
 {
   "name": "bookmark-organizer-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server that gives a coding agent tools to read and reorganize Chrome bookmarks.",
   "license": "MIT",
   "keywords": [

@@ -5,6 +5,8 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-24
+
 ### Fixed
 
 - The npm page of `bookmark-organizer-mcp` shows the README, with links that work there.
