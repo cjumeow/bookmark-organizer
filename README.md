@@ -27,15 +27,15 @@ You need Node.js 24, Chrome 134 or later, and a coding agent that speaks MCP. Th
 extension and the skill at the same version: the server accepts only an extension of its own version.
 
 1. From the [latest Release](https://github.com/cjumeow/bookmark-organizer/releases/latest), download
-   `bookmark-organizer-extension-0.1.0.zip` and `bookmark-organizer-skill-0.1.0.zip`, and unzip both into a folder you
+   `bookmark-organizer-extension-0.1.1.zip` and `bookmark-organizer-skill-0.1.1.zip`, and unzip both into a folder you
    keep, for example `~/bookmark-organizer/`.
 2. Load the extension: open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the
    unzipped extension folder. Its ID is `ancijliidboahicggjggbhlflehlnbjg`.
 3. Register the MCP server with your agent. It is a stdio server from npm: the agent starts it with
-   `npx -y bookmark-organizer-mcp@0.1.0` and talks to it over stdin and stdout. In Claude Code:
+   `npx -y bookmark-organizer-mcp@0.1.1` and talks to it over stdin and stdout. In Claude Code:
 
    ```bash
-   claude mcp add bookmark-organizer -s user -- npx -y bookmark-organizer-mcp@0.1.0
+   claude mcp add bookmark-organizer -s user -- npx -y bookmark-organizer-mcp@0.1.1
    ```
 
    Other agents, such as Cursor (`~/.cursor/mcp.json`) or Codex (`~/.codex/config.toml`), take the same command

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Bookmark Organizer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lets a coding agent reorganize your bookmarks through a local MCP server.",
   "minimum_chrome_version": "134",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9Ydzu7VgPp56bx0m87aA2WTzcMZYgvCDF/PfybMiEBjj7SkJaRrk+GTsGG3GSmp0kZlFJvUjKS85ahXIh/WFRJF9Y/NUiyslEcnPEfL2VQPxP85SlVGSKo57rGO41Uu6LPHKs08AKzpV0RN8vf9OkLOqRC6UXBkVzs93olnkEvF6Ixa6nlchLl/HC0a3oMZJsFwbY7PZH0tQIs0gOJcG+wPrvkYx4lG/j47JVpuCoPA+00sX/SIGB7GHI/c7P6s9N/72XGtJ2IyXdRM7nE5fdZkEP9Me5d9BJxOlNEyOYPwE9HNSIXeukkrbo3yVh90h0nQZvHkcqnsN3YfFiUrW9QIDAQAB",
