@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "What the extension and the MCP server both use: the bookmark tree and the plan, as zod schemas.",
+  "license": "MIT",
   "type": "module",
   "exports": "./src/index.ts",
   "scripts": {

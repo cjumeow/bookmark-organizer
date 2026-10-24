@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Chrome extension that applies bookmark changes for the bookmark-organizer MCP server.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && esbuild src/background.ts --bundle --format=esm --target=chrome134 --sourcemap --outfile=dist/background.js && node -e \"require('node:fs').cpSync('manifest.json', 'dist/manifest.json')\"",

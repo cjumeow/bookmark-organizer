@@ -118,6 +118,22 @@ needs a seam the issue does not list asks before testing there.
 - Keep pull requests small enough to read in one sitting. Never merge code you cannot explain.
 - A change to what a document in `docs/` describes updates that document in the same pull request.
 
+## Releasing
+
+A release publishes the MCP server to npm as `bookmark-organizer-mcp` and creates a GitHub Release with the extension
+and the organizer skill as zips. The server accepts only an extension of exactly its own version, so all three come
+from one tag, and users install them at the same version.
+
+1. A release pull request, `chore: release X.Y.Z`, sets the version in the five version files and turns
+   `## [Unreleased]` in `CHANGELOG.md` into `## [X.Y.Z] - YYYY-MM-DD` above a new, empty `## [Unreleased]`.
+2. After it merges, the developer tags the merge commit and pushes the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`.
+   Only the developer cuts a release; an agent never pushes a tag.
+3. `.github/workflows/publish-release.yml` checks the tag against the version, runs every check, publishes to npm
+   through trusted publishing (no npm token is stored), and creates the Release with the version's changelog section
+   as its notes.
+
+A version on npm can never be replaced, so a bad release is fixed by the next one.
+
 ## Proving a change
 
 A change is done when it is proven on the real thing, not when it compiles or its tests pass: run a build of a

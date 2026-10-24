@@ -83,3 +83,7 @@ The first request after the server starts can take up to 30 seconds while the ex
 
 Start with [`AGENTS.md`](AGENTS.md). What the tools, the plan and the bridge do is in [`docs/spec.md`](docs/spec.md),
 the terms in [`GLOSSARY.md`](GLOSSARY.md), and the decisions in [`docs/adr/`](docs/adr/).
+
+## License
+
+[MIT](LICENSE)
