@@ -3,7 +3,7 @@
 Let a coding agent such as Claude Code tidy your Chrome bookmarks: give every bookmark a short, clear name, sort them
 into folders, and remove duplicates. You see every change before it happens, and every change can be undone.
 
-https://github.com/user-attachments/assets/2b90ba8d-314c-4071-acae-ede265b3c822
+![Bookmark Organizer demo](demo.gif)
 
 ## How it works
 
