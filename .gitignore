@@ -11,3 +11,7 @@ artifacts/
 # The repository LICENSE and README, copied into the MCP server package by its prepack script
 mcp-server/LICENSE
 mcp-server/README.md
+
+# Local demo recordings
+*.mp4
+
