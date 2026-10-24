@@ -22,32 +22,46 @@ Agent ──MCP──▶ MCP server ──WebSocket on 127.0.0.1──▶ Chrome
 
 ## Install
 
-You need Node.js 24, Chrome 134 or later, and a coding agent that speaks MCP. The steps below use
-[Claude Code](https://claude.com/claude-code), the only agent it has been tested with so far. Install the server, the
-extension and the skill at the same version: the server accepts only an extension of its own version.
+You need Node.js 24, Chrome 134 or later, and a coding agent that speaks MCP. It has been tested with
+[Claude Code](https://claude.com/claude-code) only so far. The server accepts only an extension of its own version, so
+install the extension and the server (or the plugin) at the same version.
 
-1. From the [latest Release](https://github.com/cjumeow/bookmark-organizer/releases/latest), download
-   `bookmark-organizer-extension-0.1.1.zip` and `bookmark-organizer-skill-0.1.1.zip`, and unzip both into a folder you
-   keep, for example `~/bookmark-organizer/`.
-2. Load the extension: open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the
-   unzipped extension folder. Its ID is `ancijliidboahicggjggbhlflehlnbjg`.
-3. Register the MCP server with your agent. It is a stdio server from npm: the agent starts it with
-   `npx -y bookmark-organizer-mcp@0.1.1` and talks to it over stdin and stdout. In Claude Code:
+### 1. The Chrome extension, for every agent
+
+From the [latest Release](https://github.com/cjumeow/bookmark-organizer/releases/latest), download
+`bookmark-organizer-extension-0.1.1.zip` and unzip it into a folder you keep, for example `~/bookmark-organizer/`. Open
+`chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the unzipped folder. Its ID is
+`ancijliidboahicggjggbhlflehlnbjg`.
+
+### 2a. The server and the skill in Claude Code: the plugin
+
+The plugin installs the MCP server and the organizer skill together, at one version. This repository is its
+marketplace. In a Claude Code session:
+
+```text
+/plugin marketplace add cjumeow/bookmark-organizer
+/plugin install bookmark-organizer@cjumeow
+```
+
+Then start a new session. To upgrade, run `claude plugin marketplace update cjumeow` and
+`claude plugin update bookmark-organizer@cjumeow` in your shell, and load the extension of the same version.
+
+### 2b. The server and the skill in another agent
+
+1. Register the MCP server. It is a stdio server from npm: the agent starts it with
+   `npx -y bookmark-organizer-mcp@0.1.1` and talks to it over stdin and stdout. Cursor (`~/.cursor/mcp.json`), Codex
+   (`~/.codex/config.toml`) and others take that command (`npx`) and its arguments in their MCP configuration. In
+   Claude Code without the plugin, it is:
 
    ```bash
    claude mcp add bookmark-organizer -s user -- npx -y bookmark-organizer-mcp@0.1.1
    ```
 
-   Other agents, such as Cursor (`~/.cursor/mcp.json`) or Codex (`~/.codex/config.toml`), take the same command
-   (`npx`) and arguments in their own MCP configuration.
-
-4. Give your agent the organizer skill, which holds the rules for naming and filing. In Claude Code, put the unzipped
-   `bookmark-organizer` skill folder in `~/.claude/skills/`. An agent without the skill can still use the tools, but
-   does not know the naming rules.
-5. Start a new session of your agent, so it loads the server.
-
-To upgrade, repeat the steps with the new version: replace the extension and the skill, and register the server again
-with the new version number.
+2. Give the agent the organizer skill, which holds the rules for naming and filing: download
+   `bookmark-organizer-skill-0.1.1.zip` from the same Release and put its `bookmark-organizer` folder where your agent
+   reads skills (`~/.claude/skills/` for Claude Code). An agent without the skill can still use the tools, but does not
+   know the naming rules.
+3. Start a new session of your agent. To upgrade, repeat these steps with the new version.
 
 ## Use it
 

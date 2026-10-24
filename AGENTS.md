@@ -65,6 +65,7 @@ Update this table when the layout changes. Rows marked (planned) do not exist ye
 | Design decisions | `docs/adr/` |
 | The domain's terms, one name each | `GLOSSARY.md` |
 | The spec: the MCP tools, the plan format, the bridge protocol, backups | `docs/spec.md` |
+| The Claude Code plugin (the organizer skill and the MCP server) and the marketplace that lists it | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` |
 | GitHub workflows | `.github/workflows/<verb>-<object>.yml` |
 
 ### Shared code
@@ -124,7 +125,7 @@ A release publishes the MCP server to npm as `bookmark-organizer-mcp` and create
 and the organizer skill as zips. The server accepts only an extension of exactly its own version, so all three come
 from one tag, and users install them at the same version.
 
-1. A release pull request, `chore: release X.Y.Z`, sets the version in the five version files and turns
+1. A release pull request, `chore: release X.Y.Z`, sets the version in the six version files and the plugin's pinned server, and turns
    `## [Unreleased]` in `CHANGELOG.md` into `## [X.Y.Z] - YYYY-MM-DD` above a new, empty `## [Unreleased]`.
 2. After it merges, the developer tags the merge commit and pushes the tag: `git tag vX.Y.Z && git push origin vX.Y.Z`.
    Only the developer cuts a release; an agent never pushes a tag.
@@ -132,7 +133,8 @@ from one tag, and users install them at the same version.
    through trusted publishing (no npm token is stored), and creates the Release with the version's changelog section
    as its notes.
 
-A version on npm can never be replaced, so a bad release is fixed by the next one. The workflow skips a version
+The plugin is served from `main`, so it asks for the new version on npm as soon as the release pull request merges:
+push the tag right after merging, so the npm version exists when users update. A version on npm can never be replaced, so a bad release is fixed by the next one. The workflow skips a version
 already on npm and a Release that already exists, so a failed run can be repeated. npm accepts a trusted publisher
 only for a package that exists, so the developer published the first version by hand before pushing its tag.
 
@@ -160,4 +162,5 @@ npm run build            # esbuild: extension/dist/ and mcp-server/dist/
 npm run test:e2e         # Playwright: the built extension connects over the bridge
 ```
 
-Dependencies are pinned to exact versions. The version lives in five files; change all five together.
+Dependencies are pinned to exact versions. The version lives in six files and in the plugin's pinned server
+(`bookmark-organizer-mcp@X.Y.Z` in `.claude-plugin/plugin.json`); change them all together.

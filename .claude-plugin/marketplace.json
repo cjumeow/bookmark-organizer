@@ -1,0 +1,12 @@
+{
+  "name": "cjumeow",
+  "description": "Bookmark Organizer for Claude Code.",
+  "owner": { "name": "GuanJun Liu", "url": "https://github.com/cjumeow" },
+  "plugins": [
+    {
+      "name": "bookmark-organizer",
+      "source": "./",
+      "description": "Rename and file your Chrome bookmarks, with a dry run and a backup before every change."
+    }
+  ]
+}

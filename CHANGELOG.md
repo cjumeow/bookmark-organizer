@@ -5,6 +5,11 @@ All notable changes to Bookmark Organizer are in this file, in the format of
 
 ## [Unreleased]
 
+### Added
+
+- A Claude Code plugin that installs the MCP server and the organizer skill together, at one version:
+  `/plugin marketplace add cjumeow/bookmark-organizer`, then `/plugin install bookmark-organizer@cjumeow`.
+
 ## [0.1.1] - 2026-10-24
 
 ### Fixed
