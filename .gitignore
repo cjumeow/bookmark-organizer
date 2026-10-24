@@ -8,5 +8,6 @@ dist/
 # Verification evidence (screenshots, tree dumps), kept locally: see .claude/skills/verify
 artifacts/
 
-# The repository LICENSE, copied into the MCP server package by its prepack script
+# The repository LICENSE and README, copied into the MCP server package by its prepack script
 mcp-server/LICENSE
+mcp-server/README.md

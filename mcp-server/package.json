@@ -22,13 +22,14 @@
   "files": [
     "dist/index.js",
     "dist/index.js.map",
-    "LICENSE"
+    "LICENSE",
+    "README.md"
   ],
   "bin": {
     "bookmark-organizer-mcp": "dist/index.js"
   },
   "scripts": {
-    "prepack": "node -e \"require('node:fs').copyFileSync('../LICENSE', 'LICENSE')\"",
+    "prepack": "node -e \"for (const f of ['LICENSE', 'README.md']) require('node:fs').copyFileSync('../' + f, f)\"",
     "build": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "start": "node dist/index.js"

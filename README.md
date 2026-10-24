@@ -77,10 +77,17 @@ The first request after the server starts can take up to 30 seconds while the ex
 ## Develop
 
 To build it yourself: `npm ci && npm run build`, then load `extension/dist` and point your agent at
-`node mcp-server/dist/index.js`. Start with [`AGENTS.md`](AGENTS.md). What the tools, the plan and the bridge do is
-in [`docs/spec.md`](docs/spec.md), the terms in [`GLOSSARY.md`](GLOSSARY.md), and the decisions in
-[`docs/adr/`](docs/adr/).
+`node mcp-server/dist/index.js`. Start with [`AGENTS.md`][agents]. What the tools, the plan and the bridge do is in
+[`docs/spec.md`][spec], the terms in [`GLOSSARY.md`][glossary], and the decisions in [`docs/adr/`][adr].
 
 ## License
 
-[MIT](LICENSE)
+[MIT][license]
+
+<!-- Absolute links, so they also work on the npm page, which shows this README. -->
+
+[agents]: https://github.com/cjumeow/bookmark-organizer/blob/main/AGENTS.md
+[spec]: https://github.com/cjumeow/bookmark-organizer/blob/main/docs/spec.md
+[glossary]: https://github.com/cjumeow/bookmark-organizer/blob/main/GLOSSARY.md
+[adr]: https://github.com/cjumeow/bookmark-organizer/tree/main/docs/adr
+[license]: https://github.com/cjumeow/bookmark-organizer/blob/main/LICENSE
