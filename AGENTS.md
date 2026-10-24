@@ -132,7 +132,9 @@ from one tag, and users install them at the same version.
    through trusted publishing (no npm token is stored), and creates the Release with the version's changelog section
    as its notes.
 
-A version on npm can never be replaced, so a bad release is fixed by the next one.
+A version on npm can never be replaced, so a bad release is fixed by the next one. The workflow skips a version
+already on npm and a Release that already exists, so a failed run can be repeated. npm accepts a trusted publisher
+only for a package that exists, so the developer published the first version by hand before pushing its tag.
 
 ## Proving a change
 
